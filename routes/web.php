@@ -16,3 +16,4 @@ Route::get('/', 'WelcomeController@show');
 Route::get('/home', 'HomeController@show');
 
 Route::get('/settings/consorcios', 'Settings\\ConsorcioController@index');
+Route::get('/settings/consorcios/{consorcio}/propiedades', 'Settings\\PropiedadController@index');

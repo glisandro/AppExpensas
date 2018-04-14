@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ConsorcioTableSeeder::class);
 
+        $this->call(PropiedadTableSeeder::class);
+
         Model::reguard();
     }
 }

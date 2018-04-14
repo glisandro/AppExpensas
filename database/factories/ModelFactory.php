@@ -29,3 +29,10 @@ $factory->define(App\Consorcio::class, function (Faker $faker) {
         'owner_id' => 1
     ];
 });
+
+$factory->define(App\Propiedad::class, function (Faker $faker) {
+    return [
+        'denominacion' => $faker->company,
+        'consorcio_id' => 1
+    ];
+});
