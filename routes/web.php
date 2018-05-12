@@ -15,5 +15,6 @@ Route::get('/', 'WelcomeController@show');
 
 Route::get('/home', 'HomeController@show');
 
-Route::get('/settings/consorcios', 'Settings\\ConsorcioController@index');
+Route::get('/settings/consorcios', 'Settings\\ConsorcioController@index')->name('consorcio.index');
+Route::get('/settings/consorcio/create', 'Settings\\ConsorcioController@store')->name('consorcio.crear');
 Route::get('/settings/consorcios/{consorcio}/propiedades', 'Settings\\PropiedadController@index');

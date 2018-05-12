@@ -14,6 +14,6 @@ class PropiedadController extends Controller
 
         $propiedades = Propiedad::where('consorcio_id', $consorcio->id)->get();
 
-        return view('settings.propiedad.index', compact('propiedades'));
+        return view('settings.propiedad.index', compact('propiedades', 'consorcio'));
     }
 }

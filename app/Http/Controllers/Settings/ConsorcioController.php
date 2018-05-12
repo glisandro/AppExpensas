@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Consorcio;
-use Illuminate\Http\Request;
+use App\Http\Requests\ConsorcioCreateRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ConsorcioController extends Controller
 {
@@ -24,5 +25,20 @@ class ConsorcioController extends Controller
 
         return view('settings.consorcio.index',compact('consorcios'));
 
+    }
+
+    public function store(ConsorcioCreateRequest $request)
+    {
+        $data = $request->all();
+
+        Consorcio::create([
+           'name' => $data['nombre'],
+           'team_id' => Auth::user()->currentTeam()->id,
+           'owner_id' => Auth::user()->id
+        ]);
+
+        // TODO: Flash message
+
+        return redirect()->route('consorcio.index');
     }
 }

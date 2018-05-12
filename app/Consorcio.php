@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Consorcio extends Model
 {
+    protected $fillable = ['name', 'team_id', 'owner_id'];
+
     /**
      * The "booting" method of the model.
      *

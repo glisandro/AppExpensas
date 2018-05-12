@@ -7,7 +7,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card card-default">
-                        <div class="card-header">{{__('Propiedades')}}</div>
+                        <div class="card-header">{{__('Propiedades')}} - {{ __('Consorcio') }} {{ $consorcio->name }}</div>
 
                         <div class="card-body">
                             <ul>
