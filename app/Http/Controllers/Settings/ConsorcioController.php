@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ConsorcioController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,7 +18,7 @@ class ConsorcioController extends Controller
     {
         $consorcios = Consorcio::paginate(20);
 
-        return view('settings.consorcio.index',compact('consorcios'));
+        return view('settings.consorcios',compact('consorcios'));
 
     }
 

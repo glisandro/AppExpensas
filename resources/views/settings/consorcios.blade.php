@@ -30,7 +30,7 @@
                         <div class="card-body">
                             <ul>
                             @foreach($consorcios as $consorcio)
-                                    <li><a href="/settings/consorcios/{{ $consorcio->id }}/propiedades">{{ $consorcio->name }}</a> </li>
+                                    <li><a href="/settings/consorcios/{{ $consorcio->id }}">{{ $consorcio->name }}</a> </li>
                             @endforeach
                             </ul>
                             <nav area-lavel="Pagination"> {!! $consorcios->render() !!}</nav>
