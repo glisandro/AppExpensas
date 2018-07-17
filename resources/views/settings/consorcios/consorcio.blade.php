@@ -45,6 +45,7 @@
                 <!-- Tab cards -->
                 <div class="col-md-9">
                     <div class="tab-content">
+                        @include('spark::shared.errors')
                         <!-- Basic Info -->
                         <div role="tabcard" class="tab-pane active" id="basic">
                             @include('settings.consorcios.basicinfo')
@@ -52,7 +53,7 @@
 
                         <!-- Unidades funcionales -->
                         <div role="tabcard" class="tab-pane" id="uf">
-                            @include('spark::settings.security')
+                            @include('settings.consorcios.propiedades.propiedades')
                         </div>
 
 

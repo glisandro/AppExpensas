@@ -17,6 +17,12 @@ class CreatePropiedadesTable extends Migration
             $table->increments('id');
             $table->string('denominacion');
             $table->integer('consorcio_id');
+            $table->decimal('coeficiente_a', 8, 7)->default(0);
+            $table->decimal('coeficiente_b', 8, 7)->default(0);
+            $table->decimal('coeficiente_c', 8, 7)->default(0);
+            $table->decimal('coeficiente_d', 8, 7)->default(0);
+            $table->decimal('coeficiente_e', 8, 7)->default(0);
+            $table->decimal('coeficiente_f', 8, 7)->default(0);
             $table->timestamps();
         });
     }

@@ -20,9 +20,13 @@ class Consorcio extends Model
         parent::boot();
 
         static::addGlobalScope('team_id', function (Builder $builder) {
-
-            // El consorcio siempre debe pertenecer al equipo actual
             $builder->where('team_id', Auth::user()->currentTeam()->id);
         });
+    }
+
+    public function propiedades()
+    {
+        return $this->hasMany(Propiedad::class);
+
     }
 }

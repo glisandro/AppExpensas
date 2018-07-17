@@ -15,6 +15,13 @@ Route::get('/', 'WelcomeController@show');
 
 Route::get('/home', 'HomeController@show');
 
-Route::get('/settings/consorcios', 'Settings\\ConsorcioController@index')->name('consorcio.index');
-Route::get('/settings/consorcio/create', 'Settings\\ConsorcioController@store')->name('consorcio.crear');
-Route::get('/settings/consorcios/{consorcio}/propiedades', 'Settings\\PropiedadController@index');
+Route::group(['middleware' => ['auth','currentTeam']], function($route){
+    $route->get('/settings/consorcios', 'Settings\\ConsorciosController@all')->name('consorcios.index');
+    $route->get('/settings/consorcios/create', 'Settings\\ConsorciosController@store')->name('consorcio.crear');
+
+    //Route::get('/settings/consorcios/{consorcio}/propiedades', 'Settings\\PropiedadController@index');
+    $route->get('/settings/consorcios/{consorcio}', 'Settings\\Consorcio\\ConsorcioController@index')->name('consorcio.index');
+    $route->post('/settings/consorcios/{consorcio}/basicinfo/edit', 'Settings\\Consorcio\\ConsorcioController@edit')->name('consorcio.edit');
+    $route->post('/settings/consorcios/{consorcio}/propiedades/create', 'Settings\\Consorcio\\ConsorcioPropiedadController@store')->name('consorcio.propiedades.store');
+    $route->post('/settings/consorcios/{consorcio}/propiedades/edit', 'Settings\\Consorcio\\ConsorcioPropiedadController@update')->name('consorcio.propiedades.update');
+});
