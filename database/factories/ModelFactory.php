@@ -32,7 +32,19 @@ $factory->define(App\Consorcio::class, function (Faker $faker) {
 
 $factory->define(App\Propiedad::class, function (Faker $faker) {
     return [
-        'denominacion' => $faker->company,
+        'denominacion' => $faker->word,
         'consorcio_id' => 1
+    ];
+});
+
+$factory->define(\Laravel\Spark\Team::class, function (Faker $faker) {
+
+    $name = $faker->unique()->company;
+    $slug = str_slug($name, '-');
+
+    return [
+        'name' => $name,
+        'slug' => $slug,
+        'owner_id' => 1
     ];
 });
