@@ -17,7 +17,7 @@ Route::get('/home', 'HomeController@show');
 
 Route::group(['middleware' => ['auth']], function($route){
     $route->get('/settings/consorcios', 'Settings\\ConsorciosController@all')->name('consorcios.index');
-    $route->get('/settings/consorcios/create', 'Settings\\ConsorciosController@store')->name('consorcio.crear');
+    $route->post('/settings/consorcios/create', 'Settings\\ConsorciosController@store')->name('consorcio.crear');
 
     //Route::get('/settings/consorcios/{consorcio}/propiedades', 'Settings\\PropiedadController@index');
     $route->get('/settings/consorcios/{consorcio}', 'Settings\\Consorcio\\ConsorcioController@index')->name('consorcio.index');
