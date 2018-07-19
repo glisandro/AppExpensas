@@ -15,25 +15,25 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="coeficiente_b">{{__('Coeficiente B')}}</label>
-                        <input type="text" id="coeficiente_b" name="coeficiente_b" value="{{ old('coeficiente_a', '0.0000000') }}" class="form-control">
+                        <input type="text" id="coeficiente_b" name="coeficiente_b" value="{{ old('coeficiente_b', '0.0000000') }}" class="form-control">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="coeficiente_c">{{__('Coeficiente C')}}</label>
-                        <input type="text" id="coeficiente_c" name="coeficiente_c" value="{{ old('coeficiente_a', '0.0000000') }}" class="form-control">
+                        <input type="text" id="coeficiente_c" name="coeficiente_c" value="{{ old('coeficiente_c', '0.0000000') }}" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="coeficiente_d">{{__('Coeficiente D')}}</label>
-                        <input type="text" id="coeficiente_d" name="coeficiente_d" value="{{ old('coeficiente_a', '0.0000000') }}" class="form-control">
+                        <input type="text" id="coeficiente_d" name="coeficiente_d" value="{{ old('coeficiente_d', '0.0000000') }}" class="form-control">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="coeficiente_e">{{__('Coeficiente E')}}</label>
-                        <input type="text" id="coeficiente_e" name="coeficiente_e" value="{{ old('coeficiente_a', '0.0000000') }}" class="form-control">
+                        <input type="text" id="coeficiente_e" name="coeficiente_e" value="{{ old('coeficiente_e', '0.0000000') }}" class="form-control">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="coeficiente_f">{{__('Coeficiente F')}}</label>
-                        <input type="text" id="coeficiente_f" name="coeficiente_f" value="{{ old('coeficiente_a', '0.0000000') }}" class="form-control">
+                        <input type="text" id="coeficiente_f" name="coeficiente_f" value="{{ old('coeficiente_f', '0.0000000') }}" class="form-control">
                     </div>
                 </div>
 
