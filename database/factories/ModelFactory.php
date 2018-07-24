@@ -25,8 +25,7 @@ $factory->define(App\User::class, function (Faker $faker) {
 $factory->define(App\Consorcio::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
-        'team_id' => 1,
-        'owner_id' => 1
+        'team_id' => 1
     ];
 });
 

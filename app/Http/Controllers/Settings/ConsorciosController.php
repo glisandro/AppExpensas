@@ -35,7 +35,6 @@ class ConsorciosController extends Controller
     {
         $data = $request->except('_token');
         $data['team_id'] =  Auth::user()->currentTeam()->id;
-        $data['owner_id'] =  Auth::user()->id;
 
         $validator = $this->getValidator($data);
 
@@ -47,14 +46,11 @@ class ConsorciosController extends Controller
 
         Consorcio::create($data);
 
-
         return back();
-
     }
 
     protected function getValidator($data)
     {
-
         return Validator::make($data, [
             'name' => 'required|max:255'
         ]);

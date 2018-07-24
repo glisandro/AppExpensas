@@ -17,7 +17,6 @@ class CreateConsorciosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('team_id');
-            $table->integer('owner_id');
             $table->timestamps();
         });
     }
