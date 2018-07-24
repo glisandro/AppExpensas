@@ -13,8 +13,8 @@ class UserTableSeeder extends Seeder
     {
         //Admin
         factory(\App\User::class)->times(1)->create([
-            'name' => 'Gustavo',
-            'email' => 'gustavomartinez@gmail.com'
+            'name' => 'Admin',
+            'email' => 'admin@appexpensas.com'
         ])->each(function($u){
             $u->teams()->attach(factory(\Laravel\Spark\Team::class)->create(),['role' => 'owner']);
         });
