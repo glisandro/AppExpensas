@@ -2,12 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
-class Propiedad extends Model
+class Presupuesto extends Model
 {
-    protected $table = 'propiedades';
+    protected $table = 'presupuestos';
 
     protected $guarded = [];
 
@@ -15,8 +15,8 @@ class Propiedad extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('consorcio_id', function (Builder $builder) {
-            
+       static::addGlobalScope('consorcio_id', function (Builder $builder) {
+
             $builder->where('consorcio_id', request('consorcio')->id);
         });
     }

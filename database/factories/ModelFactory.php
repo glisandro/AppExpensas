@@ -47,3 +47,18 @@ $factory->define(\Laravel\Spark\Team::class, function (Faker $faker) {
         'owner_id' => 1
     ];
 });
+
+$factory->define(App\Presupuesto::class, function (Faker $faker) {
+    return [
+        'periodo' => $faker->monthName . ' ' . $faker->year,
+        'consorcio_id' => 1,
+        'desde' => '2018-07-01',
+        'hasta' => '2018-07-31',
+        'importe_a' => 1000.01,
+        'importe_b' => 0,
+        'importe_c' => 0,
+        'importe_d' => 0,
+        'importe_e' => 0,
+        'importe_f' => 0,
+    ];
+});

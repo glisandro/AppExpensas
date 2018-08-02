@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Consorcio;
 use App\Http\Requests\ConsorcioCreateRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateConsorcioRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -26,33 +27,17 @@ class ConsorciosController extends Controller
 
     public function all()
     {
-        $consorcios = Consorcio::paginate(20);
+        $consorcios = Consorcio::simplePaginate(20);
 
         return view('settings.consorcios', compact('consorcios'));
     }
 
-    public function store(Request $request)
+    public function store(CreateConsorcioRequest $request)
     {
-        $data = $request->except('_token');
-        $data['team_id'] =  Auth::user()->currentTeam()->id;
-
-        $validator = $this->getValidator($data);
-
-        if ($validator->fails()) {
-            return redirect(url()->previous())
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        Consorcio::create($data);
+        $request->createConsorcio();
 
         return back();
     }
 
-    protected function getValidator($data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255'
-        ]);
-    }
+
 }

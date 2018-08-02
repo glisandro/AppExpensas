@@ -7,15 +7,14 @@
             <div class="row justify-content-center">
                 <div class="col-md-2">@include('shared.menu')</div>
                 <div class="col-md-8">
-                    @include('spark::shared.errors')
                     <div class="card card-default">
-                        <div class="card-header">{{__('Nuevo Consorcio')}}</div>
+                        <div class="card-header">{{__('Nuevo Consorcio')}} <a href="{{ route('consorcios.presupuestos.history', $consorcio) }}">History</a></div>
                         <div class="card-body">
                             <form action="{{route('consorcio.crear')}}" method="post" role="form">
                                 <div class="form-group row">
-                                    <label class="col-md-4 col-form-label text-md-right">{{__('Nombre')}}</label>
+                                    <label class="col-md-4 col-form-label text-md-right">{{__('Periodo')}}</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="create-consorcio-name" name="name" class="form-control">
+                                        <input type="text" id="create-consorcio-name" name="name" value="{{ $presupuesto->periodo }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row mb-0">
@@ -25,18 +24,6 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                    <div class="card card-default">
-                        <div class="card-header">{{__('Dashboard')}}</div>
-
-                        <div class="card-body">
-                            <ul>
-                            @foreach($consorcios as $consorcio)
-                                    <li><a href="/settings/consorcios/{{ $consorcio->id }}">{{ $consorcio->name }}</a> </li>
-                            @endforeach
-                            </ul>
-                            <nav area-lavel="Pagination"> {!! $consorcios->render() !!}</nav>
                         </div>
                     </div>
                 </div>

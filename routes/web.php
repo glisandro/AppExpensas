@@ -15,13 +15,22 @@ Route::get('/', 'WelcomeController@show');
 
 Route::get('/home', 'HomeController@show');
 
-Route::group(['middleware' => ['auth']], function($route){
-    $route->get('/settings/consorcios', 'Settings\\ConsorciosController@all')->name('consorcios.index');
-    $route->post('/settings/consorcios/create', 'Settings\\ConsorciosController@store')->name('consorcio.crear');
+Route::middleware(['auth'])->group(function(){
+    Route::prefix('settings/consorcios')->group(function(){
+        Route::get('/', 'Settings\\ConsorciosController@all')->name('consorcios.index');
+        Route::post('/create', 'Settings\\ConsorciosController@store')->name('consorcio.crear');
 
-    //Route::get('/settings/consorcios/{consorcio}/propiedades', 'Settings\\PropiedadController@index');
-    $route->get('/settings/consorcios/{consorcio}', 'Settings\\Consorcio\\ConsorcioController@index')->name('consorcio.index');
-    $route->post('/settings/consorcios/{consorcio}/basicinfo/edit', 'Settings\\Consorcio\\ConsorcioController@edit')->name('consorcio.edit');
-    $route->post('/settings/consorcios/{consorcio}/propiedades/create', 'Settings\\Consorcio\\ConsorcioPropiedadController@store')->name('consorcio.propiedades.store');
-    $route->post('/settings/consorcios/{consorcio}/propiedades/edit', 'Settings\\Consorcio\\ConsorcioPropiedadController@update')->name('consorcio.propiedades.update');
+        Route::get('/{consorcio}', 'Settings\\Consorcio\\ConsorcioController@index')->name('consorcio.index');
+        Route::post('/{consorcio}/basicinfo/edit', 'Settings\\Consorcio\\ConsorcioController@edit')->name('consorcio.edit');
+        Route::post('/{consorcio}/propiedades/create', 'Settings\\Consorcio\\ConsorcioPropiedadController@store')->name('consorcio.propiedades.store');
+        Route::post('/{consorcio}/propiedades/edit', 'Settings\\Consorcio\\ConsorcioPropiedadController@update')->name('consorcio.propiedades.update');
+    });
+
+    Route::prefix('consorcios/{consorcio}')->group(function(){
+        Route::get('/', 'ConsorciosController@redirect');
+        Route::get('/presupuestos','Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');
+        Route::get('/presupuestos/actual','Consorcios\\PresupuestosController@actual')->name('consorcios.presupuestos.actual');
+        Route::get('/presupuestos/history','Consorcios\\PresupuestosController@history')->name('consorcios.presupuestos.history');
+
+    });
 });

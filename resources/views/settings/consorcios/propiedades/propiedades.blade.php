@@ -63,16 +63,15 @@
                         </thead>
                         <tbody>
                         @foreach($consorcio->propiedades as $propiedad)
-
                         <tr>
                             <th scope="row">{{ $propiedad->id }} <input type="hidden" name="propiedades[{{ $propiedad->id }}][id]" id="propiedades-id-{{ $propiedad->id }}" size="10" value="{{ $propiedad->id }}" class="form-control"></th>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][denominacion]" id="propiedades-denominacion-{{ $propiedad->id }}" size="10" value="{{ $propiedad->denominacion }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_a]" id="propiedades-coeficiente_a-{{ $propiedad->id }}" value="{{ $propiedad->coeficiente_a }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_b]" id="propiedades-coeficiente_b-{{ $propiedad->id }}" value="{{ $propiedad->coeficiente_b }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_c]" id="propiedades-coeficiente_c-{{ $propiedad->id }}" value="{{ $propiedad->coeficiente_c }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_d]" id="propiedades-coeficiente_d-{{ $propiedad->id }}" value="{{ $propiedad->coeficiente_d }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_e]" id="propiedades-coeficiente_e-{{ $propiedad->id }}" value="{{ $propiedad->coeficiente_e }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_f]" id="propiedades-coeficiente_f-{{ $propiedad->id }}" value="{{ $propiedad->coeficiente_f }}" class="form-control"></td>
+                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][denominacion]" id="propiedades-denominacion-{{ $propiedad->id }}" size="10" value="{{ old('propiedades.' . $propiedad->id . '.denominacion', $propiedad->denominacion) }}" class="form-control"></td>
+                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_a]" id="propiedades-coeficiente_a-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_a', $propiedad->coeficiente_a) }}" class="form-control"></td>
+                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_b]" id="propiedades-coeficiente_b-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_b', $propiedad->coeficiente_b) }}" class="form-control"></td>
+                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_c]" id="propiedades-coeficiente_c-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_c', $propiedad->coeficiente_c) }}" class="form-control"></td>
+                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_d]" id="propiedades-coeficiente_d-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_d', $propiedad->coeficiente_d) }}" class="form-control"></td>
+                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_e]" id="propiedades-coeficiente_e-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_e', $propiedad->coeficiente_e) }}" class="form-control"></td>
+                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_f]" id="propiedades-coeficiente_f-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_f', $propiedad->coeficiente_f) }}" class="form-control"></td>
                         </tr>
                         @endforeach
                         </tbody>

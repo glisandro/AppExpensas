@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Settings\Consorcio;
 
 use App\Consorcio;
+use App\Http\Requests\UpdateConsorcioRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,18 +16,13 @@ class ConsorcioController extends Controller
     
     public function index(Consorcio $consorcio)
     {
-        $consorcio = Consorcio::findOrFail($consorcio->id);
-
         return view('settings.consorcios.consorcio', compact('consorcio'));
     }
 
-    public function edit(Request $request, Consorcio $consorcio)
+    public function edit(UpdateConsorcioRequest $request, Consorcio $consorcio)
     {
-        $data = $request->all();
+        $request->updateConsorcio($consorcio);
 
-        $consorcio->name = $data['name'];
-        $consorcio->save();
-        
         // TODO: Flash message
 
         return redirect()->route('consorcio.index', $consorcio);

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Consorcio extends Model
 {
-    protected $fillable = ['name', 'team_id', 'owner_id'];
+    protected $guarded = [];
 
     /**
      * The "booting" method of the model.
@@ -28,5 +28,10 @@ class Consorcio extends Model
     {
         return $this->hasMany(Propiedad::class);
 
+    }
+
+    public function presupuestos()
+    {
+        return $this->hasMany(Presupuesto::class);
     }
 }
