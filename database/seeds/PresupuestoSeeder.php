@@ -12,10 +12,12 @@ class PresupuestoSeeder extends Seeder
     public function run()
     {
         //Consorcio 1
-        factory(\App\Presupuesto::class)->times(20)->create([
-            'consorcio_id' => 1,
-        ])->each(function($u){
+        //factory(\App\Presupuesto::class)->times(10)->create([
+        //    'consorcio_id' => 1,
+       // ])->each(function($presupuesto){
+
+            // generar gastos
             //$u->teams()->attach(factory(\Laravel\Spark\Team::class)->create(),['role' => 'owner']);
-        });
+        //});
     }
 }

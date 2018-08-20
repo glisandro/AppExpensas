@@ -11,6 +11,10 @@ class Presupuesto extends Model
 
     protected $guarded = [];
 
+    public static $estado_abierto = 'abierto';
+    
+    public static $estado_cerrado = 'cerrado';
+
     protected static function boot()
     {
         parent::boot();
@@ -19,5 +23,10 @@ class Presupuesto extends Model
 
             $builder->where('consorcio_id', request('consorcio')->id);
         });
+    }
+
+    public function gastos()
+    {
+        return $this->hasMany(Gasto::class);
     }
 }

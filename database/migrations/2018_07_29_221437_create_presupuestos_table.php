@@ -17,14 +17,15 @@ class CreatePresupuestosTable extends Migration
             $table->increments('id');
             $table->string('periodo');
             $table->integer('consorcio_id');
-            $table->dateTime('desde');
-            $table->dateTime('hasta');
-            $table->double('importe_a');
-            $table->double('importe_b');
-            $table->double('importe_c');
-            $table->double('importe_d');
-            $table->double('importe_e');
-            $table->double('importe_f');
+            $table->date('desde');
+            $table->date('hasta');
+            $table->double('total_expensa_a');
+            $table->double('total_expensa_b');
+            $table->double('total_expensa_c');
+            $table->double('total_expensa_ext_a');
+            $table->double('total_expensa_ext_b');
+            $table->double('total_expensa_ext_c');
+            $table->string('estado')->default('abierto');
             $table->timestamps();
         });
     }

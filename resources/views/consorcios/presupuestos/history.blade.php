@@ -8,7 +8,7 @@
                 <div class="col-md-2">@include('shared.menu')</div>
                 <div class="col-md-8">
                     <div class="card card-default">
-                        <div class="card-header">{{__('Dashboard')}} <a href="{{ route('consorcios.presupuestos.actual', $consorcio) }}">Actual</a></div>
+                        <div class="card-header">{{__('Dashboard')}} <a href="{{ route('consorcios.presupuestos', [$consorcio], false) }}">{{ __('actual') }}</a></div>
                         <div class="card-body">
                             <ul>
                             @foreach($presupuestos as $presupuesto)

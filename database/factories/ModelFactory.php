@@ -54,11 +54,12 @@ $factory->define(App\Presupuesto::class, function (Faker $faker) {
         'consorcio_id' => 1,
         'desde' => '2018-07-01',
         'hasta' => '2018-07-31',
-        'importe_a' => 1000.01,
-        'importe_b' => 0,
-        'importe_c' => 0,
-        'importe_d' => 0,
-        'importe_e' => 0,
-        'importe_f' => 0,
+        'total_expensa_a' => 1000.01,
+        'total_expensa_b' => 0,
+        'total_expensa_c' => 0,
+        'total_expensa_ext_a' => 0,
+        'total_expensa_ext_b' => 0,
+        'total_expensa_ext_c' => 0,
+        'estado' => 'cerrado'
     ];
 });

@@ -2,7 +2,7 @@
     <div class="card card-default">
         <div class="card-header">{{__('Informacion General')}}</div>
         <div class="card-body">
-            <form action="{{route('consorcio.edit', $consorcio)}}" method="post" role="form">
+            <form action="{{route('settings.consorcio.edit', $consorcio, false)}}" method="post" role="form">
                 <div class="form-group row">
                     <label class="col-md-4 col-form-label text-md-right">{{__('Nombre')}}</label>
                     <div class="col-md-6">
