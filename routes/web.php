@@ -17,20 +17,22 @@ Route::get('/home', 'HomeController@show');
 
 Route::middleware(['auth'])->group(function(){
     Route::prefix('settings/consorcios')->group(function(){
-        Route::get('/', 'Settings\\ConsorciosController@all')->name('consorcios.index');
-        Route::post('/create', 'Settings\\ConsorciosController@store')->name('consorcio.crear');
-
-        Route::get('/{consorcio}', 'Settings\\Consorcio\\ConsorcioController@index')->name('consorcio.index');
-        Route::post('/{consorcio}/basicinfo/edit', 'Settings\\Consorcio\\ConsorcioController@edit')->name('consorcio.edit');
-        Route::post('/{consorcio}/propiedades/create', 'Settings\\Consorcio\\ConsorcioPropiedadController@store')->name('consorcio.propiedades.store');
-        Route::post('/{consorcio}/propiedades/edit', 'Settings\\Consorcio\\ConsorcioPropiedadController@update')->name('consorcio.propiedades.update');
+        Route::get('/', 'Settings\\ConsorcioController@create')->name('settings.consorcio.create');
+        Route::post('/create', 'Settings\\ConsorcioController@store')->name('settings.consorcio.store');
+        Route::get('/{consorcio}', 'Settings\\ConsorcioController@index')->name('settings.consorcio.index');
+        Route::post('/{consorcio}/basicinfo/edit', 'Settings\\ConsorcioController@edit')->name('settings.consorcio.edit');
+        Route::post('/{consorcio}/propiedades/create', 'Settings\\ConsorcioPropiedadController@store')->name('settings.consorcio.propiedades.store');
+        Route::post('/{consorcio}/propiedades/edit', 'Settings\\ConsorcioPropiedadController@update')->name('settings.consorcio.propiedades.update');
     });
 
     Route::prefix('consorcios/{consorcio}')->group(function(){
         Route::get('/', 'ConsorciosController@redirect');
-        Route::get('/presupuestos','Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');
-        Route::get('/presupuestos/actual','Consorcios\\PresupuestosController@actual')->name('consorcios.presupuestos.actual');
-        Route::get('/presupuestos/history','Consorcios\\PresupuestosController@history')->name('consorcios.presupuestos.history');
+        Route::prefix('presupuestos')->group(function(){
+            Route::get('/','Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');
+            Route::get('/history','Consorcios\\PresupuestosController@history')->name('consorcios.presupuestos.history');
+            Route::get('/actual/{presupuesto}','Consorcios\\PresupuestosController@actual')->name('consorcios.presupuestos.actual');
+            Route::post('/actual/{presupuesto}/liquidar','Consorcios\\PresupuestosController@liquidar')->name('consorcios.presupuestos.liquidar');
+        });
 
     });
 });

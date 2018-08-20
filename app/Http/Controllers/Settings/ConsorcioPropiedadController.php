@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Settings\Consorcio;
+namespace App\Http\Controllers\Settings;
 
 use App\Consorcio;
 use App\Http\Requests\CreatePropiedadRequest;

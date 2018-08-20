@@ -11,7 +11,7 @@
                     <div class="card card-default">
                         <div class="card-header">{{__('Nuevo Consorcio')}}</div>
                         <div class="card-body">
-                            <form action="{{route('consorcio.crear')}}" method="post" role="form">
+                            <form action="{{route('settings.consorcio.store', false)}}" method="post" role="form">
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label text-md-right">{{__('Nombre')}}</label>
                                     <div class="col-md-6">
@@ -25,18 +25,6 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                    <div class="card card-default">
-                        <div class="card-header">{{__('Dashboard')}}</div>
-
-                        <div class="card-body">
-                            <ul>
-                            @foreach($consorcios as $consorcio)
-                                    <li><a href="/settings/consorcios/{{ $consorcio->id }}">{{ $consorcio->name }}</a> </li>
-                            @endforeach
-                            </ul>
-                            <nav area-lavel="Pagination"> {!! $consorcios->render() !!}</nav>
                         </div>
                     </div>
                 </div>

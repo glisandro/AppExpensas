@@ -41,11 +41,12 @@ class CreateConsorcioRequest extends FormRequest
 
     public function createConsorcio()
     {
-        DB::transaction(function(){
-            Consorcio::create([
+        return DB::transaction(function(){
+            return Consorcio::create([
                 'name' => $this->name,
                 'team_id' => Auth::user()->currentTeam()->id
-            ]);
+            ])->id;
+
         });
     }
 }
