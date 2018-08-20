@@ -2,7 +2,7 @@
     <div class="card card-default">
         <div class="card-header">{{__('Nueva Propiedad')}}</div>
         <div class="card-body">
-            <form action="{{ route('consorcio.propiedades.store', $consorcio, false) }}" method="post" role="form">
+            <form action="{{ route('settings.consorcio.propiedades.store', $consorcio, false) }}" method="post" role="form">
                 <div class="form-group">
                     <label for="denominacion">{{__('Denominacion')}}</label>
                     <input type="text" id="denominacion" name="denominacion" value="{{ old('denominacion') }}" class="form-control">
@@ -46,7 +46,7 @@
     <div class="card card-default">
         <div class="card-header">{{__('Propiedades')}} - {{ __('Consorcio') }} {{ $consorcio->name }}</div>
         <div class="card-body">
-            <form action="{{route('consorcio.propiedades.update', $consorcio)}}" method="post" role="form">
+            <form action="{{route('settings.consorcio.propiedades.update', $consorcio, false)}}" method="post" role="form">
                 <button type="submit" class="btn btn-primary">{{__('Editar')}}</button>
                     <table class="table">
                         <thead>
