@@ -13,8 +13,6 @@
 
 Route::get('/', 'WelcomeController@show');
 
-Route::get('/home', 'HomeController@show');
-
 Route::middleware(['auth'])->group(function(){
     Route::prefix('settings/consorcios')->group(function(){
         Route::get('/', 'Settings\\ConsorcioController@create')->name('settings.consorcio.create');
@@ -25,7 +23,10 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/{consorcio}/propiedades/edit', 'Settings\\ConsorcioPropiedadController@update')->name('settings.consorcio.propiedades.update');
     });
 
+    Route::get('/consorcios', 'ConsorciosController@consorcios');
+    
     Route::prefix('consorcios/{consorcio}')->group(function(){
+
         Route::get('/', 'ConsorciosController@redirect');
         Route::prefix('presupuestos')->group(function(){
             Route::get('/','Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');

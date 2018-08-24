@@ -11,7 +11,11 @@
                     <div class="card-header">{{__('Dashboard')}}</div>
 
                     <div class="card-body">
-                        {{__('Your application\'s dashboard.')}}
+                        @foreach($consorcios as $consorcio)
+                            <ul>
+                                <li>{{ $consorcio->name }}</li>
+                            </ul>
+                        @endforeach
                     </div>
                 </div>
             </div>

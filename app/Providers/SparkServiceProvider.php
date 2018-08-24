@@ -50,6 +50,8 @@ class SparkServiceProvider extends ServiceProvider
      */
     public function booted()
     {
+        Spark::afterLoginRedirectTo('/consorcios');
+
         Spark::noAdditionalTeams();
         Spark::identifyTeamsByPath();
 
