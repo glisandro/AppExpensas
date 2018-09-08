@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function(){
     
     Route::prefix('consorcios/{consorcio}')->group(function(){
 
-        Route::get('/', 'ConsorciosController@redirect');
+        Route::get('/', 'ConsorciosController@redirectToDefaultSection')->name('consorcios.redirectToDefaultSection');
         Route::prefix('presupuestos')->group(function(){
             Route::get('/','Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');
             Route::get('/history','Consorcios\\PresupuestosController@history')->name('consorcios.presupuestos.history');

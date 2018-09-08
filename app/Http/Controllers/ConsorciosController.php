@@ -22,7 +22,7 @@ class ConsorciosController extends Controller
      *
      * @return Response
      */
-    public function redirect(Consorcio $consorcio)
+    public function redirectToDefaultSection(Consorcio $consorcio)
     {
         // TODO: Redireccionar segun el perfil del usuario, administracion, cobranzas, liquidación...
         return redirect()->route('consorcios.presupuestos', $consorcio->id);
