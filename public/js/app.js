@@ -15664,182 +15664,6 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./node_modules/js-cookie/src/js.cookie.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * JavaScript Cookie v2.2.0
- * https://github.com/js-cookie/js-cookie
- *
- * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
- * Released under the MIT license
- */
-;(function (factory) {
-	var registeredInModuleLoader = false;
-	if (true) {
-		!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		registeredInModuleLoader = true;
-	}
-	if (true) {
-		module.exports = factory();
-		registeredInModuleLoader = true;
-	}
-	if (!registeredInModuleLoader) {
-		var OldCookies = window.Cookies;
-		var api = window.Cookies = factory();
-		api.noConflict = function () {
-			window.Cookies = OldCookies;
-			return api;
-		};
-	}
-}(function () {
-	function extend () {
-		var i = 0;
-		var result = {};
-		for (; i < arguments.length; i++) {
-			var attributes = arguments[ i ];
-			for (var key in attributes) {
-				result[key] = attributes[key];
-			}
-		}
-		return result;
-	}
-
-	function init (converter) {
-		function api (key, value, attributes) {
-			var result;
-			if (typeof document === 'undefined') {
-				return;
-			}
-
-			// Write
-
-			if (arguments.length > 1) {
-				attributes = extend({
-					path: '/'
-				}, api.defaults, attributes);
-
-				if (typeof attributes.expires === 'number') {
-					var expires = new Date();
-					expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
-					attributes.expires = expires;
-				}
-
-				// We're using "expires" because "max-age" is not supported by IE
-				attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
-
-				try {
-					result = JSON.stringify(value);
-					if (/^[\{\[]/.test(result)) {
-						value = result;
-					}
-				} catch (e) {}
-
-				if (!converter.write) {
-					value = encodeURIComponent(String(value))
-						.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
-				} else {
-					value = converter.write(value, key);
-				}
-
-				key = encodeURIComponent(String(key));
-				key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
-				key = key.replace(/[\(\)]/g, escape);
-
-				var stringifiedAttributes = '';
-
-				for (var attributeName in attributes) {
-					if (!attributes[attributeName]) {
-						continue;
-					}
-					stringifiedAttributes += '; ' + attributeName;
-					if (attributes[attributeName] === true) {
-						continue;
-					}
-					stringifiedAttributes += '=' + attributes[attributeName];
-				}
-				return (document.cookie = key + '=' + value + stringifiedAttributes);
-			}
-
-			// Read
-
-			if (!key) {
-				result = {};
-			}
-
-			// To prevent the for loop in the first place assign an empty array
-			// in case there are no cookies at all. Also prevents odd result when
-			// calling "get()"
-			var cookies = document.cookie ? document.cookie.split('; ') : [];
-			var rdecode = /(%[0-9A-Z]{2})+/g;
-			var i = 0;
-
-			for (; i < cookies.length; i++) {
-				var parts = cookies[i].split('=');
-				var cookie = parts.slice(1).join('=');
-
-				if (!this.json && cookie.charAt(0) === '"') {
-					cookie = cookie.slice(1, -1);
-				}
-
-				try {
-					var name = parts[0].replace(rdecode, decodeURIComponent);
-					cookie = converter.read ?
-						converter.read(cookie, name) : converter(cookie, name) ||
-						cookie.replace(rdecode, decodeURIComponent);
-
-					if (this.json) {
-						try {
-							cookie = JSON.parse(cookie);
-						} catch (e) {}
-					}
-
-					if (key === name) {
-						result = cookie;
-						break;
-					}
-
-					if (!key) {
-						result[name] = cookie;
-					}
-				} catch (e) {}
-			}
-
-			return result;
-		}
-
-		api.set = api;
-		api.get = function (key) {
-			return api.call(api, key);
-		};
-		api.getJSON = function () {
-			return api.apply({
-				json: true
-			}, [].slice.call(arguments));
-		};
-		api.defaults = {};
-
-		api.remove = function (key, attributes) {
-			api(key, '', extend(attributes, {
-				expires: -1
-			}));
-		};
-
-		api.withConverter = init;
-
-		return api;
-	}
-
-	return init(function () {});
-}));
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/lodash.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -67659,7 +67483,7 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/app.js":
+/***/ "./resources/js/app.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -67680,7 +67504,7 @@ module.exports = function(module) {
 
 __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/spark-bootstrap.js");
 
-__webpack_require__("./resources/assets/js/components/bootstrap.js");
+__webpack_require__("./resources/js/components/bootstrap.js");
 
 var app = new Vue({
   mixins: [__webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/spark.js")]
@@ -67688,7 +67512,7 @@ var app = new Vue({
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/bootstrap.js":
+/***/ "./resources/js/components/bootstrap.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -67702,15 +67526,15 @@ var app = new Vue({
  | your components that you write while building your applications.
  */
 
-__webpack_require__("./resources/assets/js/spark-components/bootstrap.js");
+__webpack_require__("./resources/js/spark-components/bootstrap.js");
 
-__webpack_require__("./resources/assets/js/components/home.js");
+__webpack_require__("./resources/js/components/home.js");
 
-__webpack_require__("./resources/assets/js/components/settings/settings.js");
+__webpack_require__("./resources/js/components/settings/settings.js");
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/home.js":
+/***/ "./resources/js/components/home.js":
 /***/ (function(module, exports) {
 
 Vue.component('home', {
@@ -67723,7 +67547,7 @@ Vue.component('home', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/settings/settings.js":
+/***/ "./resources/js/components/settings/settings.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/settings.js");
@@ -67734,7 +67558,7 @@ Vue.component('settings', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/auth/register-braintree.js":
+/***/ "./resources/js/spark-components/auth/register-braintree.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/auth/register-braintree.js");
@@ -67745,7 +67569,7 @@ Vue.component('spark-register-braintree', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/auth/register-stripe.js":
+/***/ "./resources/js/spark-components/auth/register-stripe.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/auth/register-stripe.js");
@@ -67756,105 +67580,105 @@ Vue.component('spark-register-stripe', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/bootstrap.js":
+/***/ "./resources/js/spark-components/bootstrap.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /**
  * Layout Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/navbar/navbar.js");
-__webpack_require__("./resources/assets/js/spark-components/notifications/notifications.js");
+__webpack_require__("./resources/js/spark-components/navbar/navbar.js");
+__webpack_require__("./resources/js/spark-components/notifications/notifications.js");
 
 /**
  * Authentication Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/auth/register-stripe.js");
-__webpack_require__("./resources/assets/js/spark-components/auth/register-braintree.js");
+__webpack_require__("./resources/js/spark-components/auth/register-stripe.js");
+__webpack_require__("./resources/js/spark-components/auth/register-braintree.js");
 
 /**
  * Settings Component...
  */
-__webpack_require__("./resources/assets/js/spark-components/settings/settings.js");
+__webpack_require__("./resources/js/spark-components/settings/settings.js");
 
 /**
  * Profile Settings Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/settings/profile.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/profile/update-profile-photo.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/profile/update-contact-information.js");
+__webpack_require__("./resources/js/spark-components/settings/profile.js");
+__webpack_require__("./resources/js/spark-components/settings/profile/update-profile-photo.js");
+__webpack_require__("./resources/js/spark-components/settings/profile/update-contact-information.js");
 
 /**
  * Teams Settings Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/settings/teams.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/create-team.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/pending-invitations.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/current-teams.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/team-settings.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/team-profile.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/update-team-photo.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/update-team-name.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/team-membership.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/send-invitation.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/mailed-invitations.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/teams/team-members.js");
+__webpack_require__("./resources/js/spark-components/settings/teams.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/create-team.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/pending-invitations.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/current-teams.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/team-settings.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/team-profile.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/update-team-photo.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/update-team-name.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/team-membership.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/send-invitation.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/mailed-invitations.js");
+__webpack_require__("./resources/js/spark-components/settings/teams/team-members.js");
 
 /**
  * Security Settings Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/settings/security.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/security/update-password.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/security/enable-two-factor-auth.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/security/disable-two-factor-auth.js");
+__webpack_require__("./resources/js/spark-components/settings/security.js");
+__webpack_require__("./resources/js/spark-components/settings/security/update-password.js");
+__webpack_require__("./resources/js/spark-components/settings/security/enable-two-factor-auth.js");
+__webpack_require__("./resources/js/spark-components/settings/security/disable-two-factor-auth.js");
 
 /**
  * API Settings Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/settings/api.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/api/create-token.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/api/tokens.js");
+__webpack_require__("./resources/js/spark-components/settings/api.js");
+__webpack_require__("./resources/js/spark-components/settings/api/create-token.js");
+__webpack_require__("./resources/js/spark-components/settings/api/tokens.js");
 
 /**
  * Subscription Settings Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/settings/subscription.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/subscription/subscribe-stripe.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/subscription/subscribe-braintree.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/subscription/update-subscription.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/subscription/resume-subscription.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/subscription/cancel-subscription.js");
+__webpack_require__("./resources/js/spark-components/settings/subscription.js");
+__webpack_require__("./resources/js/spark-components/settings/subscription/subscribe-stripe.js");
+__webpack_require__("./resources/js/spark-components/settings/subscription/subscribe-braintree.js");
+__webpack_require__("./resources/js/spark-components/settings/subscription/update-subscription.js");
+__webpack_require__("./resources/js/spark-components/settings/subscription/resume-subscription.js");
+__webpack_require__("./resources/js/spark-components/settings/subscription/cancel-subscription.js");
 
 /**
  * Payment Method Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/settings/payment-method-stripe.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/payment-method-braintree.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/payment-method/update-vat-id.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/payment-method/update-payment-method-stripe.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/payment-method/update-payment-method-braintree.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/payment-method/redeem-coupon.js");
+__webpack_require__("./resources/js/spark-components/settings/payment-method-stripe.js");
+__webpack_require__("./resources/js/spark-components/settings/payment-method-braintree.js");
+__webpack_require__("./resources/js/spark-components/settings/payment-method/update-vat-id.js");
+__webpack_require__("./resources/js/spark-components/settings/payment-method/update-payment-method-stripe.js");
+__webpack_require__("./resources/js/spark-components/settings/payment-method/update-payment-method-braintree.js");
+__webpack_require__("./resources/js/spark-components/settings/payment-method/redeem-coupon.js");
 
 /**
  * Billing History Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/settings/invoices.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/invoices/update-extra-billing-information.js");
-__webpack_require__("./resources/assets/js/spark-components/settings/invoices/invoice-list.js");
+__webpack_require__("./resources/js/spark-components/settings/invoices.js");
+__webpack_require__("./resources/js/spark-components/settings/invoices/update-extra-billing-information.js");
+__webpack_require__("./resources/js/spark-components/settings/invoices/invoice-list.js");
 
 /**
  * Kiosk Components...
  */
-__webpack_require__("./resources/assets/js/spark-components/kiosk/kiosk.js");
-__webpack_require__("./resources/assets/js/spark-components/kiosk/announcements.js");
-__webpack_require__("./resources/assets/js/spark-components/kiosk/metrics.js");
-__webpack_require__("./resources/assets/js/spark-components/kiosk/users.js");
-__webpack_require__("./resources/assets/js/spark-components/kiosk/profile.js");
-__webpack_require__("./resources/assets/js/spark-components/kiosk/add-discount.js");
+__webpack_require__("./resources/js/spark-components/kiosk/kiosk.js");
+__webpack_require__("./resources/js/spark-components/kiosk/announcements.js");
+__webpack_require__("./resources/js/spark-components/kiosk/metrics.js");
+__webpack_require__("./resources/js/spark-components/kiosk/users.js");
+__webpack_require__("./resources/js/spark-components/kiosk/profile.js");
+__webpack_require__("./resources/js/spark-components/kiosk/add-discount.js");
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/kiosk/add-discount.js":
+/***/ "./resources/js/spark-components/kiosk/add-discount.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/kiosk/add-discount.js");
@@ -67865,7 +67689,7 @@ Vue.component('spark-kiosk-add-discount', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/kiosk/announcements.js":
+/***/ "./resources/js/spark-components/kiosk/announcements.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/kiosk/announcements.js");
@@ -67876,7 +67700,7 @@ Vue.component('spark-kiosk-announcements', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/kiosk/kiosk.js":
+/***/ "./resources/js/spark-components/kiosk/kiosk.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/kiosk/kiosk.js");
@@ -67887,7 +67711,7 @@ Vue.component('spark-kiosk', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/kiosk/metrics.js":
+/***/ "./resources/js/spark-components/kiosk/metrics.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/kiosk/metrics.js");
@@ -67898,7 +67722,7 @@ Vue.component('spark-kiosk-metrics', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/kiosk/profile.js":
+/***/ "./resources/js/spark-components/kiosk/profile.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/kiosk/profile.js");
@@ -67909,7 +67733,7 @@ Vue.component('spark-kiosk-profile', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/kiosk/users.js":
+/***/ "./resources/js/spark-components/kiosk/users.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/kiosk/users.js");
@@ -67920,7 +67744,7 @@ Vue.component('spark-kiosk-users', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/navbar/navbar.js":
+/***/ "./resources/js/spark-components/navbar/navbar.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/navbar/navbar.js");
@@ -67931,7 +67755,7 @@ Vue.component('spark-navbar', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/notifications/notifications.js":
+/***/ "./resources/js/spark-components/notifications/notifications.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/notifications/notifications.js");
@@ -67942,7 +67766,7 @@ Vue.component('spark-notifications', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/api.js":
+/***/ "./resources/js/spark-components/settings/api.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/api.js");
@@ -67953,7 +67777,7 @@ Vue.component('spark-api', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/api/create-token.js":
+/***/ "./resources/js/spark-components/settings/api/create-token.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/api/create-token.js");
@@ -67964,7 +67788,7 @@ Vue.component('spark-create-token', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/api/tokens.js":
+/***/ "./resources/js/spark-components/settings/api/tokens.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/api/tokens.js");
@@ -67975,7 +67799,7 @@ Vue.component('spark-tokens', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/invoices.js":
+/***/ "./resources/js/spark-components/settings/invoices.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/invoices.js");
@@ -67986,7 +67810,7 @@ Vue.component('spark-invoices', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/invoices/invoice-list.js":
+/***/ "./resources/js/spark-components/settings/invoices/invoice-list.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/invoices/invoice-list.js");
@@ -67997,7 +67821,7 @@ Vue.component('spark-invoice-list', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/invoices/update-extra-billing-information.js":
+/***/ "./resources/js/spark-components/settings/invoices/update-extra-billing-information.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/invoices/update-extra-billing-information.js");
@@ -68008,7 +67832,7 @@ Vue.component('spark-update-extra-billing-information', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/payment-method-braintree.js":
+/***/ "./resources/js/spark-components/settings/payment-method-braintree.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/payment-method-braintree.js");
@@ -68019,7 +67843,7 @@ Vue.component('spark-payment-method-braintree', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/payment-method-stripe.js":
+/***/ "./resources/js/spark-components/settings/payment-method-stripe.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/payment-method-stripe.js");
@@ -68030,7 +67854,7 @@ Vue.component('spark-payment-method-stripe', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/payment-method/redeem-coupon.js":
+/***/ "./resources/js/spark-components/settings/payment-method/redeem-coupon.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/payment-method/redeem-coupon.js");
@@ -68041,7 +67865,7 @@ Vue.component('spark-redeem-coupon', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/payment-method/update-payment-method-braintree.js":
+/***/ "./resources/js/spark-components/settings/payment-method/update-payment-method-braintree.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/payment-method/update-payment-method-braintree.js");
@@ -68052,7 +67876,7 @@ Vue.component('spark-update-payment-method-braintree', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/payment-method/update-payment-method-stripe.js":
+/***/ "./resources/js/spark-components/settings/payment-method/update-payment-method-stripe.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/payment-method/update-payment-method-stripe.js");
@@ -68063,7 +67887,7 @@ Vue.component('spark-update-payment-method-stripe', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/payment-method/update-vat-id.js":
+/***/ "./resources/js/spark-components/settings/payment-method/update-vat-id.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/payment-method/update-vat-id.js");
@@ -68074,7 +67898,7 @@ Vue.component('spark-update-vat-id', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/profile.js":
+/***/ "./resources/js/spark-components/settings/profile.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/profile.js");
@@ -68085,7 +67909,7 @@ Vue.component('spark-profile', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/profile/update-contact-information.js":
+/***/ "./resources/js/spark-components/settings/profile/update-contact-information.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/profile/update-contact-information.js");
@@ -68096,7 +67920,7 @@ Vue.component('spark-update-contact-information', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/profile/update-profile-photo.js":
+/***/ "./resources/js/spark-components/settings/profile/update-profile-photo.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/profile/update-profile-photo.js");
@@ -68107,7 +67931,7 @@ Vue.component('spark-update-profile-photo', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/security.js":
+/***/ "./resources/js/spark-components/settings/security.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/security.js");
@@ -68118,7 +67942,7 @@ Vue.component('spark-security', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/security/disable-two-factor-auth.js":
+/***/ "./resources/js/spark-components/settings/security/disable-two-factor-auth.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/security/disable-two-factor-auth.js");
@@ -68129,7 +67953,7 @@ Vue.component('spark-disable-two-factor-auth', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/security/enable-two-factor-auth.js":
+/***/ "./resources/js/spark-components/settings/security/enable-two-factor-auth.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/security/enable-two-factor-auth.js");
@@ -68140,7 +67964,7 @@ Vue.component('spark-enable-two-factor-auth', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/security/update-password.js":
+/***/ "./resources/js/spark-components/settings/security/update-password.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/security/update-password.js");
@@ -68151,7 +67975,7 @@ Vue.component('spark-update-password', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/settings.js":
+/***/ "./resources/js/spark-components/settings/settings.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/settings.js");
@@ -68162,7 +67986,7 @@ Vue.component('spark-settings', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/subscription.js":
+/***/ "./resources/js/spark-components/settings/subscription.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/subscription.js");
@@ -68173,7 +67997,7 @@ Vue.component('spark-subscription', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/subscription/cancel-subscription.js":
+/***/ "./resources/js/spark-components/settings/subscription/cancel-subscription.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/subscription/cancel-subscription.js");
@@ -68184,7 +68008,7 @@ Vue.component('spark-cancel-subscription', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/subscription/resume-subscription.js":
+/***/ "./resources/js/spark-components/settings/subscription/resume-subscription.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/subscription/resume-subscription.js");
@@ -68195,7 +68019,7 @@ Vue.component('spark-resume-subscription', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/subscription/subscribe-braintree.js":
+/***/ "./resources/js/spark-components/settings/subscription/subscribe-braintree.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/subscription/subscribe-braintree.js");
@@ -68206,7 +68030,7 @@ Vue.component('spark-subscribe-braintree', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/subscription/subscribe-stripe.js":
+/***/ "./resources/js/spark-components/settings/subscription/subscribe-stripe.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/subscription/subscribe-stripe.js");
@@ -68217,7 +68041,7 @@ Vue.component('spark-subscribe-stripe', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/subscription/update-subscription.js":
+/***/ "./resources/js/spark-components/settings/subscription/update-subscription.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/subscription/update-subscription.js");
@@ -68228,7 +68052,7 @@ Vue.component('spark-update-subscription', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams.js":
+/***/ "./resources/js/spark-components/settings/teams.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams.js");
@@ -68239,7 +68063,7 @@ Vue.component('spark-teams', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/create-team.js":
+/***/ "./resources/js/spark-components/settings/teams/create-team.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/create-team.js");
@@ -68250,7 +68074,7 @@ Vue.component('spark-create-team', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/current-teams.js":
+/***/ "./resources/js/spark-components/settings/teams/current-teams.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/current-teams.js");
@@ -68261,7 +68085,7 @@ Vue.component('spark-current-teams', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/mailed-invitations.js":
+/***/ "./resources/js/spark-components/settings/teams/mailed-invitations.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/mailed-invitations.js");
@@ -68272,7 +68096,7 @@ Vue.component('spark-mailed-invitations', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/pending-invitations.js":
+/***/ "./resources/js/spark-components/settings/teams/pending-invitations.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/pending-invitations.js");
@@ -68283,7 +68107,7 @@ Vue.component('spark-pending-invitations', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/send-invitation.js":
+/***/ "./resources/js/spark-components/settings/teams/send-invitation.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/send-invitation.js");
@@ -68294,7 +68118,7 @@ Vue.component('spark-send-invitation', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/team-members.js":
+/***/ "./resources/js/spark-components/settings/teams/team-members.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/team-members.js");
@@ -68305,7 +68129,7 @@ Vue.component('spark-team-members', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/team-membership.js":
+/***/ "./resources/js/spark-components/settings/teams/team-membership.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/team-membership.js");
@@ -68316,7 +68140,7 @@ Vue.component('spark-team-membership', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/team-profile.js":
+/***/ "./resources/js/spark-components/settings/teams/team-profile.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/team-profile.js");
@@ -68327,7 +68151,7 @@ Vue.component('spark-team-profile', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/team-settings.js":
+/***/ "./resources/js/spark-components/settings/teams/team-settings.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/team-settings.js");
@@ -68338,7 +68162,7 @@ Vue.component('spark-team-settings', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/update-team-name.js":
+/***/ "./resources/js/spark-components/settings/teams/update-team-name.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/update-team-name.js");
@@ -68349,7 +68173,7 @@ Vue.component('spark-update-team-name', {
 
 /***/ }),
 
-/***/ "./resources/assets/js/spark-components/settings/teams/update-team-photo.js":
+/***/ "./resources/js/spark-components/settings/teams/update-team-photo.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 var base = __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/settings/teams/update-team-photo.js");
@@ -68360,14 +68184,14 @@ Vue.component('spark-update-team-photo', {
 
 /***/ }),
 
-/***/ "./resources/assets/sass/app-rtl.scss":
+/***/ "./resources/sass/app-rtl.scss":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "./resources/assets/sass/app.scss":
+/***/ "./resources/sass/app.scss":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -68669,7 +68493,7 @@ module.exports = {
             this.registerForm.busy = true;
             this.registerForm.errors.forget();
 
-            if (!Spark.cardUpFront || this.selectedPlan.price == 0) {
+            if (!Spark.cardUpFront || this.registerForm.invitation || this.selectedPlan.price == 0) {
                 return this.sendRegistration();
             }
 
@@ -69509,7 +69333,7 @@ module.exports = {
             if (!this.lastYearsIndicators || !this.indicators) {
                 return false;
             }
-            ;
+
             return this.percentChange(_.takeRight(this.indicators).yearly_recurring_revenue, this.lastYearsIndicators.yearly_recurring_revenue);
         },
 
@@ -72441,7 +72265,7 @@ module.exports = {
         /**
          * Get the current billing address from the subscribe form.
          *
-         * This used primarily for wathcing.
+         * This used primarily for watching.
          */
         currentBillingAddress: function currentBillingAddress() {
             return this.form.address + this.form.address_line_2 + this.form.city + this.form.state + this.form.zip + this.form.country + this.form.vat_id;
@@ -73415,7 +73239,6 @@ window.axios = __webpack_require__("./node_modules/axios/index.js");
 window._ = __webpack_require__("./node_modules/lodash/lodash.js");
 window.moment = __webpack_require__("./node_modules/moment/moment.js");
 window.Promise = __webpack_require__("./node_modules/promise/index.js");
-window.Cookies = __webpack_require__("./node_modules/js-cookie/src/js.cookie.js");
 window.Popper = __webpack_require__("./node_modules/popper.js/dist/esm/popper.js").default;
 window.__ = function (key, replace) {
     var translation = Spark.translations[key] ? Spark.translations[key] : key;
@@ -73822,9 +73645,9 @@ __webpack_require__("./vendor/laravel/spark-aurelius/resources/assets/js/forms/b
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__("./resources/assets/js/app.js");
-__webpack_require__("./resources/assets/sass/app.scss");
-module.exports = __webpack_require__("./resources/assets/sass/app-rtl.scss");
+__webpack_require__("./resources/js/app.js");
+__webpack_require__("./resources/sass/app.scss");
+module.exports = __webpack_require__("./resources/sass/app-rtl.scss");
 
 
 /***/ })

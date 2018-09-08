@@ -11666,7 +11666,8 @@ a.text-dark:focus {
   opacity: 0.6;
 }
 
-.nav-link {
+.navbar-spark .nav-link,
+.spark-settings-tabs .nav-link {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -11682,7 +11683,8 @@ a.text-dark:focus {
   color: #49545a;
 }
 
-.nav-link svg {
+.navbar-spark .nav-link svg,
+.spark-settings-tabs .nav-link svg {
   fill: currentColor;
   margin-right: 15px;
   color: #9aa5ac;
@@ -11690,21 +11692,25 @@ a.text-dark:focus {
       flex-shrink: 0;
 }
 
-.nav-link:hover {
+.navbar-spark .nav-link:hover,
+.spark-settings-tabs .nav-link:hover {
   font-weight: 600;
   color: #42a2dc;
 }
 
-.nav-link:hover svg {
+.navbar-spark .nav-link:hover svg,
+.spark-settings-tabs .nav-link:hover svg {
   fill: #42a2dc;
 }
 
-.nav-link.active {
+.navbar-spark .nav-link.active,
+.spark-settings-tabs .nav-link.active {
   font-weight: 600;
   color: #42a2dc;
 }
 
-.nav-link.active svg {
+.navbar-spark .nav-link.active svg,
+.spark-settings-tabs .nav-link.active svg {
   fill: #42a2dc;
 }
 
