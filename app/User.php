@@ -48,7 +48,7 @@ class User extends SparkUser
      * @var array
      */
     protected $casts = [
-        'trial_ends_at' => 'datetime',
+        'trial_ends_at'        => 'datetime',
         'uses_two_factor_auth' => 'boolean',
     ];
 }

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Consorcio;
-use App\Http\Requests\UpdateConsorcioRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateConsorcioRequest;
+use App\Http\Requests\UpdateConsorcioRequest;
 
 class ConsorcioController extends Controller
 {
@@ -23,8 +22,8 @@ class ConsorcioController extends Controller
     public function create()
     {
         return view('settings.consorcios.create');
-
     }
+
     public function store(CreateConsorcioRequest $request)
     {
         $lastId = $request->createConsorcio();
@@ -40,6 +39,4 @@ class ConsorcioController extends Controller
 
         return redirect()->route('settings.consorcio.index', $consorcio);
     }
-
-
 }

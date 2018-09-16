@@ -2,9 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
 
 class Consorcio extends Model
 {
@@ -27,7 +27,6 @@ class Consorcio extends Model
     public function propiedades()
     {
         return $this->hasMany(Propiedad::class);
-
     }
 
     public function presupuestos()

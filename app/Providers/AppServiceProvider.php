@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        setlocale(LC_TIME, config('app.locale') . '_ES');
+        setlocale(LC_TIME, config('app.locale').'_ES');
     }
 }

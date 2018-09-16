@@ -6,7 +6,6 @@ use App\Consorcio;
 use App\Http\Controllers\Controller;
 use App\Presupuesto;
 use Carbon\Carbon;
-use Illuminate\Routing\RouteCollection;
 use Symfony\Component\HttpFoundation\Request;
 
 class PresupuestosController extends Controller
@@ -30,19 +29,19 @@ class PresupuestosController extends Controller
     {
         $presupuesto = Presupuesto::where((['estado' => Presupuesto::$estado_abierto]))->latest()->first();
 
-        if(! $presupuesto) {
+        if (!$presupuesto) {
             $presupuesto = Presupuesto::Create([
-                'periodo' => ucwords(Carbon::now()->addMonth()->formatLocalized('%B %Y')),
-                'desde' => Carbon::now()->startOfMonth()->toDateString(),
-                'hasta' => Carbon::now()->endOfMonth()->toDateString(),
-                'consorcio_id' => $consorcio->id,
-                'total_expensa_a' => 0,
-                'total_expensa_b' => 0,
-                'total_expensa_c' => 0,
+                'periodo'             => ucwords(Carbon::now()->addMonth()->formatLocalized('%B %Y')),
+                'desde'               => Carbon::now()->startOfMonth()->toDateString(),
+                'hasta'               => Carbon::now()->endOfMonth()->toDateString(),
+                'consorcio_id'        => $consorcio->id,
+                'total_expensa_a'     => 0,
+                'total_expensa_b'     => 0,
+                'total_expensa_c'     => 0,
                 'total_expensa_ext_a' => 0,
                 'total_expensa_ext_b' => 0,
                 'total_expensa_ext_c' => 0,
-                'estado' => 'abierto'
+                'estado'              => 'abierto',
             ]);
         }
 
@@ -74,15 +73,14 @@ class PresupuestosController extends Controller
     {
         $history = (Presupuesto::all()->count() > 1) ?? true;
 
-        if(! $history) {
+        if (!$history) {
             // TODO: Fash message
             return redirect()->route('consorcios.presupuestos.actual', [$consorcio, $presupuesto]);
         }
-        
+
         $presupuestos = Presupuesto::where(['estado'=>'cerrado'])->simplePaginate(12);
 
-
-        return view('consorcios.presupuestos.history', compact('consorcio','presupuestos'));
+        return view('consorcios.presupuestos.history', compact('consorcio', 'presupuestos'));
     }
 
     public function liquidar(Request $request, Consorcio $consorcio, Presupuesto $presupuesto)
