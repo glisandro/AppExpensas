@@ -13,8 +13,8 @@
 
 Route::get('/', 'WelcomeController@show');
 
-Route::middleware(['auth'])->group(function(){
-    Route::prefix('settings/consorcios')->group(function(){
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('settings/consorcios')->group(function () {
         Route::get('/', 'Settings\\ConsorcioController@create')->name('settings.consorcio.create');
         Route::post('/create', 'Settings\\ConsorcioController@store')->name('settings.consorcio.store');
         Route::get('/{consorcio}', 'Settings\\ConsorcioController@index')->name('settings.consorcio.index');
@@ -24,16 +24,14 @@ Route::middleware(['auth'])->group(function(){
     });
 
     Route::get('/consorcios', 'ConsorciosController@consorcios');
-    
-    Route::prefix('consorcios/{consorcio}')->group(function(){
 
+    Route::prefix('consorcios/{consorcio}')->group(function () {
         Route::get('/', 'ConsorciosController@redirectToDefaultSection')->name('consorcios.redirectToDefaultSection');
-        Route::prefix('presupuestos')->group(function(){
-            Route::get('/','Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');
-            Route::get('/history','Consorcios\\PresupuestosController@history')->name('consorcios.presupuestos.history');
-            Route::get('/actual/{presupuesto}','Consorcios\\PresupuestosController@actual')->name('consorcios.presupuestos.actual');
-            Route::post('/actual/{presupuesto}/liquidar','Consorcios\\PresupuestosController@liquidar')->name('consorcios.presupuestos.liquidar');
+        Route::prefix('presupuestos')->group(function () {
+            Route::get('/', 'Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');
+            Route::get('/history', 'Consorcios\\PresupuestosController@history')->name('consorcios.presupuestos.history');
+            Route::get('/actual/{presupuesto}', 'Consorcios\\PresupuestosController@actual')->name('consorcios.presupuestos.actual');
+            Route::post('/actual/{presupuesto}/liquidar', 'Consorcios\\PresupuestosController@liquidar')->name('consorcios.presupuestos.liquidar');
         });
-
     });
 });

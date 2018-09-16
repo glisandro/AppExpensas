@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Laravel\Spark\Spark;
 use Laravel\Spark\Providers\AppServiceProvider as ServiceProvider;
+use Laravel\Spark\Spark;
 
 class SparkServiceProvider extends ServiceProvider
 {
@@ -13,11 +13,11 @@ class SparkServiceProvider extends ServiceProvider
      * @var array
      */
     protected $details = [
-        'vendor' => 'Your Company',
-        'product' => 'Your Product',
-        'street' => 'PO Box 111',
+        'vendor'   => 'Your Company',
+        'product'  => 'Your Product',
+        'street'   => 'PO Box 111',
         'location' => 'Your Town, NY 12345',
-        'phone' => '555-555-5555',
+        'phone'    => '555-555-5555',
     ];
 
     /**
@@ -33,7 +33,7 @@ class SparkServiceProvider extends ServiceProvider
      * @var array
      */
     protected $developers = [
-        'admin@appexpensas.com'
+        'admin@appexpensas.com',
     ];
 
     /**
@@ -59,13 +59,13 @@ class SparkServiceProvider extends ServiceProvider
 
         Spark::freeTeamPlan()
             ->features([
-                'First', 'Second', 'Third'
+                'First', 'Second', 'Third',
             ]);
 
         Spark::teamPlan('Basic', 'provider-id-1')
             ->price(10)
             ->features([
-                'First', 'Second', 'Third'
+                'First', 'Second', 'Third',
             ]);
     }
 }

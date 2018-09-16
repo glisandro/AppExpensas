@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 use App\Consorcio;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CreateConsorcioRequest extends FormRequest
 {
@@ -27,7 +27,7 @@ class CreateConsorcioRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100'
+            'name' => 'required|max:100',
         ];
     }
 
@@ -35,18 +35,17 @@ class CreateConsorcioRequest extends FormRequest
     {
         return [
             'name.required' => 'El campo nombre es obligatorio',
-            'name.max' => 'El campo nombre no puede tener mas de 100 caracteres'
+            'name.max'      => 'El campo nombre no puede tener mas de 100 caracteres',
         ];
     }
 
     public function createConsorcio()
     {
-        return DB::transaction(function(){
+        return DB::transaction(function () {
             return Consorcio::create([
-                'name' => $this->name,
-                'team_id' => Auth::user()->currentTeam()->id
+                'name'    => $this->name,
+                'team_id' => Auth::user()->currentTeam()->id,
             ])->id;
-
         });
     }
 }

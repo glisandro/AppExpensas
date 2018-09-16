@@ -24,6 +24,5 @@ class GastosController extends Controller
      */
     public function store(Consorcio $consorcio)
     {
-
     }
 }

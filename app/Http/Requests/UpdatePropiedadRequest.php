@@ -27,7 +27,7 @@ class UpdatePropiedadRequest extends FormRequest
         $coeficienteRules = 'numeric|min:0|max:1';
 
         return [
-            'propiedades.*.denominacion' => 'required|max:255',
+            'propiedades.*.denominacion'  => 'required|max:255',
             'propiedades.*.coeficiente_a' => $coeficienteRules,
             'propiedades.*.coeficiente_b' => $coeficienteRules,
             'propiedades.*.coeficiente_c' => $coeficienteRules,
@@ -42,7 +42,7 @@ class UpdatePropiedadRequest extends FormRequest
     {
         $formPropiedades = $this->input('propiedades');
 
-        if($formPropiedades) {
+        if ($formPropiedades) {
             foreach ($this->all()['propiedades'] as $row) {
                 $propiedad = Propiedad::findOrFail($row['id']);
                 $propiedad->denominacion = $row['denominacion'];
@@ -66,6 +66,6 @@ class UpdatePropiedadRequest extends FormRequest
     {
         $url = $this->redirector->getUrlGenerator();
 
-        return $url->previous() . "#/uf";
+        return $url->previous().'#/uf';
     }
 }

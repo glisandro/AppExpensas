@@ -28,7 +28,7 @@ class CreatePropiedadRequest extends FormRequest
         $coeficienteRules = 'numeric|min:0|max:1';
 
         return [
-            'denominacion' => 'required|max:255',
+            'denominacion'  => 'required|max:255',
             'coeficiente_a' => $coeficienteRules,
             'coeficiente_b' => $coeficienteRules,
             'coeficiente_c' => $coeficienteRules,
@@ -41,8 +41,8 @@ class CreatePropiedadRequest extends FormRequest
     public function createPropiedad(Consorcio $consorcio)
     {
         Propiedad::create([
-            'denominacion' => $this->denominacion,
-            'consorcio_id' => $consorcio->id,
+            'denominacion'  => $this->denominacion,
+            'consorcio_id'  => $consorcio->id,
             'coeficiente_a' => $this->coeficiente_a,
             'coeficiente_b' => $this->coeficiente_b,
             'coeficiente_c' => $this->coeficiente_c,
@@ -61,6 +61,6 @@ class CreatePropiedadRequest extends FormRequest
     {
         $url = $this->redirector->getUrlGenerator();
 
-        return $url->previous() . "#/uf";
+        return $url->previous().'#/uf';
     }
 }

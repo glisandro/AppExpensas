@@ -2,18 +2,16 @@
 
 namespace Tests\Feature;
 
-use App\{Team,User};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\CreatesUsers;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RoutesSimpleTest extends TestCase
 {
     use RefreshDatabase, CreatesUsers;
-    
+
     /** @test */
-    function home()
+    public function home()
     {
         $this->get('/')
             ->assertStatus(200)
@@ -22,7 +20,7 @@ class RoutesSimpleTest extends TestCase
     }
 
     /** @test */
-    function login()
+    public function login()
     {
         $this->get('/login')
             ->assertStatus(200)
@@ -31,7 +29,7 @@ class RoutesSimpleTest extends TestCase
     }
 
     /** @test */
-    function register()
+    public function register()
     {
         $this->get('/register')
             ->assertStatus(200)
@@ -39,8 +37,8 @@ class RoutesSimpleTest extends TestCase
             ->assertSee('Password');
     }
 
-    public function is_user_logged_in()  {
-
+    public function is_user_logged_in()
+    {
         $user = $this->createUserWithTeam();
 
         $this->actingAs($user);
