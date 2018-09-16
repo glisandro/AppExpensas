@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
 
         //Fake users
         factory(\App\User::class)->times(100)->create()->each(function($u){
-            $u->teams()->attach(factory(\Laravel\Spark\Team::class)->create(),['role' => 'owner']);
+            $u->teams()->attach(factory(Team::class)->create(),['role' => 'owner']); // El array del segundo argumento se usa en la tabla pivot
         });
     }
 }

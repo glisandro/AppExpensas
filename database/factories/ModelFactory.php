@@ -36,7 +36,7 @@ $factory->define(App\Propiedad::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(\Laravel\Spark\Team::class, function (Faker $faker) {
+$factory->define(\App\Team::class, function (Faker $faker) {
 
     $name = $faker->unique()->company;
     $slug = str_slug($name, '-');
