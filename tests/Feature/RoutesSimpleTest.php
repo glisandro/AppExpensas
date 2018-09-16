@@ -2,13 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\{Team,User};
+use Tests\CreatesUsers;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RoutesSimpleTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, CreatesUsers;
     
     /** @test */
     function home()
@@ -35,5 +37,15 @@ class RoutesSimpleTest extends TestCase
             ->assertStatus(200)
             ->assertSee('E-Mail Address')
             ->assertSee('Password');
+    }
+
+    public function is_user_logged_in()  {
+
+        $user = $this->createUserWithTeam();
+
+        $this->actingAs($user);
+
+        $this->get('/consorcios')
+            ->assertSee('Dashboard');
     }
 }
