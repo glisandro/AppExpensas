@@ -117,38 +117,8 @@
                             </form>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">{{ _('Gastos') }}</div>
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">{{__('Concepto')}}</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="create-consorcio-periodo" name="concepto" value="{{ old('concepto') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">{{__('Importe A')}}</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="create-consorcio-importe_a" name="importe_a" value="{{ old('importe_a') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">{{__('Importe B')}}</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="create-consorcio-importe_b" name="importe_b" value="{{ old('importe_b') }}" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label text-md-right">{{__('Importe C')}}</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="create-consorcio-importe_c" name="importe_c" value="{{ old('importe_c') }}" class="form-control">
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="card-footer"></div>
-                    </div>
+                    @include('consorcios.presupuestos.form_gastos')
+                    @include('consorcios.presupuestos.grid_gastos')
                 </div>
             </div>
         </div>
