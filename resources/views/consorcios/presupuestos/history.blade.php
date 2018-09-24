@@ -2,11 +2,11 @@
 
 @section('content')
     <home :user="user" inline-template>
-        <div class="container">
+        <div class="spark-screen container">
             <!-- Application Dashboard -->
-            <div class="row justify-content-center">
-                <div class="col-md-2">@include('shared.menu')</div>
-                <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-3 spark-settings-tabs">@include('shared.menu')</div>
+                <div class="col-md-9">
                     <div class="card card-default">
                         <div class="card-header">{{__('Dashboard')}} <a href="{{ route('consorcios.presupuestos', [$consorcio], false) }}">{{ __('actual') }}</a></div>
                         <div class="card-body">

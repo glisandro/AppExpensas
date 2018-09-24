@@ -1,10 +1,11 @@
-        <div class="col-md-3 spark-settings-tabs">
+
             <aside>
                 <ul class="nav flex-column mb-4 ">
                     <li class="nav-item">
                         <a href="/settings/consorcios">+</a>
                     </li>
-                    <li class="nav-item ">
+
+                    <li class="nav-item">
                         <a class="nav-link" href="/consorcios/1">
                             {{__('Consorcio1')}}
                         </a>
@@ -14,4 +15,4 @@
                     </li>
                </ul>
             </aside>
-         </div>
+
