@@ -10,6 +10,7 @@ class Gasto extends Model
     
     public function presupuesto()
     {
-        return $this->belongsTo(Consorcio::class);
+        return $this->belongsTo(Presupuesto::class);
     }
+
 }

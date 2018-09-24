@@ -1,5 +1,6 @@
 <?php
 
+use App\Team;
 use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
@@ -16,7 +17,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@appexpensas.com'
         ])->each(function($u){
-            $u->teams()->attach(factory(\Laravel\Spark\Team::class)->create(),['role' => 'owner']);
+            $u->teams()->attach(factory(Team::class)->create(),['role' => 'owner']);
         });
 
         //Fake users
