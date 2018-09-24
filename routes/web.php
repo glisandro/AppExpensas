@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/','Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');
             Route::get('/history','Consorcios\\PresupuestosController@history')->name('consorcios.presupuestos.history');
             Route::get('/actual/{presupuesto}','Consorcios\\PresupuestosController@actual')->name('consorcios.presupuestos.actual');
-            Route::post('/actual/{presupuesto}/liquidar','Consorcios\\PresupuestosController@liquidar')->name('consorcios.presupuestos.liquidar');
+            Route::post('/actual/{presupuesto}','Consorcios\\PresupuestosController@liquidar')->name('consorcios.presupuestos.liquidar');
             Route::post('/{presupuesto}/gastos/store','Consorcios\\GastosController@store')->name('consorcios.gastos.store');
         });
 
