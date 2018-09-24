@@ -32,7 +32,8 @@ $factory->define(App\Consorcio::class, function (Faker $faker) {
 $factory->define(App\Propiedad::class, function (Faker $faker) {
     return [
         'denominacion' => $faker->word,
-        'consorcio_id' => 1
+        'consorcio_id' => 1,
+        'coeficiente_a' => 0.000001,
     ];
 });
 
