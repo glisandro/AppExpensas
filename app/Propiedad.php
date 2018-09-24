@@ -20,4 +20,9 @@ class Propiedad extends Model
             $builder->where('consorcio_id', request('consorcio')->id);
         });
     }
+
+    public function scopeLiquidables()
+    {
+        return $this->all();
+    }
 }

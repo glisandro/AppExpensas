@@ -28,7 +28,7 @@ class PresupuestosController extends Controller
      */
     public function index(Consorcio $consorcio)
     {
-        $presupuesto = Presupuesto::where((['estado' => Presupuesto::$estado_abierto]))->latest()->first();
+        $presupuesto = Presupuesto::abierto()->latest()->first();
 
         if(! $presupuesto) {
             $presupuesto = Presupuesto::Create([
@@ -60,7 +60,7 @@ class PresupuestosController extends Controller
     {
         $history = (Presupuesto::all()->count() > 1) ?? true;
 
-        $presupuesto = Presupuesto::where(['estado' => Presupuesto::$estado_abierto])->findOrFail($presupuesto->id);
+        $presupuesto = Presupuesto::abierto()->findOrFail($presupuesto->id);
 
         return view('consorcios.presupuestos.actual', compact('consorcio', 'presupuesto', 'history'));
     }
@@ -79,21 +79,21 @@ class PresupuestosController extends Controller
             return redirect()->route('consorcios.presupuestos.actual', [$consorcio, $presupuesto]);
         }
         
-        $presupuestos = Presupuesto::where(['estado'=>'cerrado'])->simplePaginate(12);
-
+        $presupuestos = Presupuesto::cerrado()->simplePaginate(12);
 
         return view('consorcios.presupuestos.history', compact('consorcio','presupuestos'));
     }
 
     public function liquidar(Request $request, Consorcio $consorcio, Presupuesto $presupuesto)
     {
-        $data = $request->all();
-
-        $presupuesto = Presupuesto::where(['estado' => Presupuesto::$estado_abierto])->findOrFail($presupuesto->id);
-        $presupuesto->estado = 'cerrado';
-        $presupuesto->save();
+        //$data = $request->all();
+        //TODO: Validar
+        $presupuesto = Presupuesto::abierto()->findOrFail($presupuesto->id);
+        $presupuesto->liquidar();
 
         // TODO: Fash message
         return redirect()->route('consorcios.presupuestos', [$consorcio]);
     }
+    
+    
 }

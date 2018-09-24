@@ -28,7 +28,7 @@ class GastosController extends Controller
     public function store(Request $request, Consorcio $consorcio, Presupuesto $presupuesto)
     {
         $data = $request->all();
-
+        // TODO: Validar gastos
         $gasto = new Gasto([
             'concepto' => $data['concepto'],
             'rubro' => 1,
@@ -37,9 +37,10 @@ class GastosController extends Controller
             'importe_c' => $data['importe_c'],
         ]);
 
-        // TODO: TOTALIZAR PRESUPUETOS
         // TODO: RESOLVER EXTRAORDINARIAS
-        $presupuesto->gastos()->save($gasto);
+        $presupuesto->addGasto($gasto);
+
+
 
         return back();
     }
