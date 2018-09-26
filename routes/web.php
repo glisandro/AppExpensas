@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/actual/{presupuesto}','Consorcios\\PresupuestosController@liquidar')->name('consorcios.presupuestos.liquidar');
             Route::post('/{presupuesto}/gastos/store','Consorcios\\GastosController@store')->name('consorcios.gastos.store');
         });
-
+        Route::get('/cc','Consorcios\\CuentaCorrienteController@propiedades')->name('consorcios.cuentacorriente.propiedades');
+        Route::get('/propiedades/{propiedad}/cc','Consorcios\\CuentaCorrienteController@show')->name('consorcios.cuentacorriente.show');
     });
 });

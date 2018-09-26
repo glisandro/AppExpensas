@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCuponesTable extends Migration
+class CreateConceptosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateCuponesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cupones', function (Blueprint $table) {
+        Schema::create('conceptos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('propiedad_id');
-            $table->integer('presupuesto_id');
+            $table->string('concepto');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateCuponesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cupones');
+        Schema::dropIfExists('conceptos');
     }
 }

@@ -55,9 +55,9 @@ class Presupuesto extends Model
         });
     }
 
-    public function liquidar()
+    public function liquidar($conceptosLiquidables)
     {
-        DB::transaction(function(){
+        DB::transaction(function() use($conceptosLiquidables){
             
             $propiedades = Propiedad::liquidables();
 
@@ -68,15 +68,17 @@ class Presupuesto extends Model
                     'presupuesto_id' => $this->id,
                 ] );
 
-                // Concepto EXPENSAS
-                $cupon_concepto = CuponConceptos::create([
-                    'cupon_id' => $cupon->id,
-                    'concepto_id' => 1, // concepto EXPENSAS
-                    'importe' => $this->montoOrdinarias($propiedad)
-                ]);
+                // Expenas ordinarias, extraordinarias, multas, notas de crédito...
+                foreach ($conceptosLiquidables as $conceptoLiquidable){
+                    // Concepto EXPENSAS
 
-                // Otros conceptos, multas, notas de crédito...
-
+                    $cupon_concepto = CuponConceptos::create([
+                        'cupon_id' => $cupon->id,
+                        'concepto_id' => $conceptoLiquidable->getId(), // concepto EXPENSAS
+                        'importe' => $conceptoLiquidable->calcularImporte($propiedad)
+                    ]);
+                }
+                
                 $cupon->conceptos()->save($cupon_concepto);
 
             }
@@ -86,13 +88,6 @@ class Presupuesto extends Model
         });
     }
 
-    private function montoOrdinarias(Propiedad $propiedad)
-    {
-        $total = $propiedad->coeficiente_a * $this->total_expensa_a;
-        $total += $propiedad->coeficiente_b * $this->total_expensa_b;
-        $total += $propiedad->coeficiente_c * $this->total_expensa_c;
 
-        return $total;
-    }
 
 }

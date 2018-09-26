@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(PresupuestoSeeder::class);
 
+        $this->call(ConceptoSeeder::class);
+
         Model::reguard();
     }
 }

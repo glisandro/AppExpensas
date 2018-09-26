@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Consorcios;
 
 use App\Consorcio;
 use App\Http\Controllers\Controller;
+use App\Liquidacion\ExpenasOrinarias;
+use App\Liquidacion\ExpensasExtraordinarias;
 use App\Presupuesto;
 use Carbon\Carbon;
 use Illuminate\Routing\RouteCollection;
@@ -89,7 +91,10 @@ class PresupuestosController extends Controller
         //$data = $request->all();
         //TODO: Validar
         $presupuesto = Presupuesto::abierto()->findOrFail($presupuesto->id);
-        $presupuesto->liquidar();
+
+        $conceptosLiquidables = collect([new ExpenasOrinarias($presupuesto), new ExpensasExtraordinarias($presupuesto)]);
+
+        $presupuesto->liquidar($conceptosLiquidables);
 
         // TODO: Fash message
         return redirect()->route('consorcios.presupuestos', [$consorcio]);
@@ -97,3 +102,4 @@ class PresupuestosController extends Controller
     
     
 }
+

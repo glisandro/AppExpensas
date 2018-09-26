@@ -14,5 +14,15 @@ class CuponConceptos extends Model
     {
         return $this->belongsTo(Cupon::class);
     }
+
+    public function concepto()
+    {
+        return $this->belongsTo(Concepto::class);
+    }
+
+    public function getImporteAttribute($value)
+    {
+        return number_format($value,2,",",".");
+    }
     
 }

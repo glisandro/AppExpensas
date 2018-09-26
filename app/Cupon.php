@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Cupon extends Model
 {
@@ -19,5 +20,9 @@ class Cupon extends Model
     {
         return $this->hasMany(CuponConceptos::class);
     }
-    
+
+    public function scopePropiedad(Builder $builder, Propiedad $propiedad)
+    {
+        return $builder->where('propiedad_id', $propiedad->id);
+    }
 }

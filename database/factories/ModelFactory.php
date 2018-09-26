@@ -64,3 +64,9 @@ $factory->define(App\Presupuesto::class, function (Faker $faker) {
         'estado' => 'cerrado'
     ];
 });
+
+$factory->define(\App\Concepto::class, function(Faker $faker) {
+    return [
+        'concepto' => 'Expensas Ordinarias'
+    ];
+});
