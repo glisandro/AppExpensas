@@ -34,4 +34,9 @@ class Consorcio extends Model
     {
         return $this->hasMany(Presupuesto::class);
     }
+
+    public function team()
+    {
+        return $this->hasOne(Team::class);
+    }
 }
