@@ -21,6 +21,7 @@ class CreateGastosTable extends Migration
             $table->double('importe_a')->nullable();
             $table->double('importe_b')->nullable();
             $table->double('importe_c')->nullable();
+            $table->boolean('extraordinario');
             $table->timestamps();
         });
     }

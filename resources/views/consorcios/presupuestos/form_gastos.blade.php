@@ -26,6 +26,14 @@
                     <input type="text" id="create-consorcio-importe_c" name="importe_c" value="{{ old('importe_c') }}" class="form-control">
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-md-4 col-form-label text-md-right">Extraordinaria</div>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <input type="checkbox" id="create-consorcio-extraordinaria" name="extraordinaria" value="{{ old('extraordinaria') }}" class="form-check-input">
+                    </div>
+                </div>
+            </div>
             <div class="form-group row mb-0">
                 <div class="offset-md-4 col-md-6">
                     <button type="submit" class="btn btn-primary">{{__('Guardar')}}</button>

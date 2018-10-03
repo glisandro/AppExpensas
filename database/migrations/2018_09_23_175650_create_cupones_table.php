@@ -17,6 +17,7 @@ class CreateCuponesTable extends Migration
             $table->increments('id');
             $table->integer('propiedad_id');
             $table->integer('presupuesto_id');
+            $table->double('total')->nullable()->default(0);
             $table->timestamps();
         });
     }

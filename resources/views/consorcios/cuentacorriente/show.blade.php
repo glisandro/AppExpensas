@@ -23,6 +23,10 @@
                                     </thead>
                                     <tbody>
                                     @foreach($cupones as $cupon)
+                                        <tr>
+                                            <td colspan="4">Período: {{$cupon->presupuesto->periodo}} Total: {{$cupon->total}}</td>
+
+                                        </tr>
                                             @foreach($cupon->conceptos as $cuponDetalle)
                                                 <tr>
                                                     <td>{{ $cuponDetalle->concepto->concepto }}</td>

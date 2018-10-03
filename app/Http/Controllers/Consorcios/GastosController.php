@@ -29,18 +29,19 @@ class GastosController extends Controller
     {
         $data = $request->all();
         // TODO: Validar gastos
+
         $gasto = new Gasto([
             'concepto' => $data['concepto'],
             'rubro' => 1,
             'importe_a' => $data['importe_a'],
             'importe_b' => $data['importe_b'],
             'importe_c' => $data['importe_c'],
+            'extraordinario' => (key_exists('extraordinaria',$data)) ? true : false
         ]);
 
         // TODO: RESOLVER EXTRAORDINARIAS
+        //dd($gasto);
         $presupuesto->addGasto($gasto);
-
-
 
         return back();
     }

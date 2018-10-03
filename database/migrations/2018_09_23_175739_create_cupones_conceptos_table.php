@@ -18,6 +18,7 @@ class CreateCuponesConceptosTable extends Migration
             $table->integer('cupon_id');
             $table->integer('concepto_id'); // TODO: Crear tabla conceptos con signo
             $table->double('importe');
+            $table->string('importe_formula');
             $table->timestamps();
         });
     }

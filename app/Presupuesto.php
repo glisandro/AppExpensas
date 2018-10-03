@@ -46,10 +46,16 @@ class Presupuesto extends Model
         // TODO: Create test
         DB::transaction(function() use ($gasto){
             $this->gastos()->save($gasto);
-
-            $this->total_expensa_a = $this->gastos()->sum('importe_a');
-            $this->total_expensa_b = $this->gastos()->sum('importe_b');
-            $this->total_expensa_c = $this->gastos()->sum('importe_c');
+           
+            if ($gasto->extraordinario) {
+                $this->total_expensa_ext_a = $this->gastos()->sum('importe_a');
+                $this->total_expensa_ext_b = $this->gastos()->sum('importe_b');
+                $this->total_expensa_ext_c = $this->gastos()->sum('importe_c');
+            } else {
+                $this->total_expensa_a = $this->gastos()->sum('importe_a');
+                $this->total_expensa_b = $this->gastos()->sum('importe_b');
+                $this->total_expensa_c = $this->gastos()->sum('importe_c');
+            }
 
             $this->save();
         });
@@ -63,6 +69,10 @@ class Presupuesto extends Model
 
             foreach ($propiedades as $propiedad){
 
+                $total = 0;
+
+                $cupon_conceptos = [];
+
                 $cupon = Cupon::create([
                     'propiedad_id' => $propiedad->id,
                     'presupuesto_id' => $this->id,
@@ -70,16 +80,24 @@ class Presupuesto extends Model
 
                 // Expenas ordinarias, extraordinarias, multas, notas de crédito...
                 foreach ($conceptosLiquidables as $conceptoLiquidable){
-                    // Concepto EXPENSAS
 
-                    $cupon_concepto = CuponConceptos::create([
-                        'cupon_id' => $cupon->id,
-                        'concepto_id' => $conceptoLiquidable->getId(), // concepto EXPENSAS
-                        'importe' => $conceptoLiquidable->calcularImporte($propiedad)
-                    ]);
+                    $importe = $conceptoLiquidable->calcularImporte($propiedad);
+
+                    if($importe <> 0){ // puede ser negativo
+                        $cupon_conceptos[] = new CuponConceptos([
+                            'cupon_id' => $cupon->id,
+                            'concepto_id' => $conceptoLiquidable->getId(),
+                            'importe' => $importe,
+                            'importe_formula' => '0,00000001 * 12500000 + ...'
+                        ]);
+
+                        $total += $importe;
+                    }
                 }
-                
-                $cupon->conceptos()->save($cupon_concepto);
+
+                $cupon->total = $total;
+                $cupon->save();
+                $cupon->conceptos()->saveMany($cupon_conceptos);
 
             }
             

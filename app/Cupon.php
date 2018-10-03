@@ -25,4 +25,9 @@ class Cupon extends Model
     {
         return $builder->where('propiedad_id', $propiedad->id);
     }
+
+    public function getTotalAttribute($value)
+    {
+        return number_format($value,2,",",".");
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ConceptoSeeder extends Seeder
 {
@@ -11,6 +12,12 @@ class ConceptoSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Concepto::class)->times(1)->create();
+        DB::table('conceptos')->insert([
+            'concepto' => 'Expensa Ordinaria'
+        ]);
+
+        DB::table('conceptos')->insert([
+            'concepto' => 'Expensa Extraordinaria'
+        ]);
     }
 }
