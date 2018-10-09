@@ -10,6 +10,20 @@ use App\Http\Controllers\Controller;
 
 class CuentaCorrienteController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('hasPropiedad');
+        
+        $this->middleware('hasPresupuesto');
+    }
+
     public function propiedades(Consorcio $consorcio)
     {
         $propiedades = Propiedad::all();

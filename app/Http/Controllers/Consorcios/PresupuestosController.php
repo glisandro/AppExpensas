@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Consorcios;
 
 use App\Consorcio;
+use App\Expensas\Liquidacion\Conceptos\ConceptosLiquidablesAggregator;
+use App\Expensas\Liquidacion\Conceptos\ExpenasOrinarias;
+use App\Expensas\Liquidacion\Conceptos\ExpensasExtraordinarias;
 use App\Http\Controllers\Controller;
-use App\Liquidacion\ExpenasOrinarias;
-use App\Liquidacion\ExpensasExtraordinarias;
 use App\Presupuesto;
 use Carbon\Carbon;
 use Illuminate\Routing\RouteCollection;
@@ -18,14 +19,21 @@ class PresupuestosController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ConceptosLiquidablesAggregator $conceptosLiquidables)
     {
         $this->middleware('auth');
+        
+        $this->middleware('hasPropiedad');
+
+        $this->middleware('hasPresupuesto', ['except' => array('first','storefirst')]);
+
+        $this->conceptosLiquidables = $conceptosLiquidables;
     }
 
     /**
      * Show the application dashboard.
      *
+     * @param Consorcio $consorcio
      * @return Response
      */
     public function index(Consorcio $consorcio)
@@ -54,8 +62,19 @@ class PresupuestosController extends Controller
     }
 
     /**
+     * @param Consorcio $consorcio
+     * @return mixed
+     */
+    public function first(Consorcio $consorcio)
+    {
+        return view('consorcios.presupuestos.first', compact('consorcio'));
+    }
+
+    /**
      * Show the application dashboard.
      *
+     * @param Consorcio $consorcio
+     * @param Presupuesto $presupuesto
      * @return Response
      */
     public function actual(Consorcio $consorcio, Presupuesto $presupuesto)
@@ -70,6 +89,7 @@ class PresupuestosController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param Consorcio $consorcio
      * @return Response
      */
     public function history(Consorcio $consorcio)
@@ -86,14 +106,17 @@ class PresupuestosController extends Controller
         return view('consorcios.presupuestos.history', compact('consorcio','presupuestos'));
     }
 
-    public function liquidar(Request $request, Consorcio $consorcio, Presupuesto $presupuesto)
+    /**
+     * @param Request $request
+     * @param Consorcio $consorcio
+     * @param Presupuesto $presupuesto
+     * @return mixed
+     */
+    public function liquidar(Request $request, Consorcio $consorcio, Presupuesto $presupuesto, ConceptosLiquidablesAggregator $conceptosLiquidables)
     {
-        //$data = $request->all();
         //TODO: Validar
         $presupuesto = Presupuesto::abierto()->findOrFail($presupuesto->id);
-
-        $conceptosLiquidables = collect([new ExpenasOrinarias($presupuesto), new ExpensasExtraordinarias($presupuesto)]);
-
+ 
         $presupuesto->liquidar($conceptosLiquidables);
 
         // TODO: Fash message

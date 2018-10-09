@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Expensas\Liquidacion\Conceptos\ConceptosLiquidablesAggregator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,9 @@ class Presupuesto extends Model
     CONST ESTADO_ABIERTO = 'ABIERTO';
     
     CONST ESTADO_CERRADO = 'CERRADO';
+
+    protected $conceptosLiquidables;
+
 
     public function gastos()
     {
@@ -41,29 +45,38 @@ class Presupuesto extends Model
         return $query->where('estado', self::ESTADO_CERRADO);
     }
 
-    public function addGasto(Gasto $gasto)
+    public function setConceptosLiquidables(array $conceptos)
     {
-        // TODO: Create test
-        DB::transaction(function() use ($gasto){
-            $this->gastos()->save($gasto);
-           
-            if ($gasto->extraordinario) {
-                $this->total_expensa_ext_a = $this->gastos()->sum('importe_a');
-                $this->total_expensa_ext_b = $this->gastos()->sum('importe_b');
-                $this->total_expensa_ext_c = $this->gastos()->sum('importe_c');
-            } else {
-                $this->total_expensa_a = $this->gastos()->sum('importe_a');
-                $this->total_expensa_b = $this->gastos()->sum('importe_b');
-                $this->total_expensa_c = $this->gastos()->sum('importe_c');
-            }
-
-            $this->save();
-        });
+        $this->conceptosLiquidables =  $conceptos;
     }
 
-    public function liquidar($conceptosLiquidables)
+    public function saveGasto(Gasto $gasto)
     {
-        DB::transaction(function() use($conceptosLiquidables){
+        DB::transaction(function() use($gasto){
+            $this->gastos()->save($gasto);
+
+            $this->calcularTotales();
+        });
+
+        return $this;
+    }
+
+    protected function calcularTotales()
+    {
+        // TODO: Create test
+        $this->total_expensa_a = $this->gastos()->where('extraordinario', 0)->sum('importe_a');
+        $this->total_expensa_b = $this->gastos()->where('extraordinario', 0)->sum('importe_b');
+        $this->total_expensa_c = $this->gastos()->where('extraordinario', 0)->sum('importe_c');
+        $this->total_expensa_ext_a = $this->gastos()->where('extraordinario', 1)->sum('importe_a');
+        $this->total_expensa_ext_b = $this->gastos()->where('extraordinario', 1)->sum('importe_b');
+        $this->total_expensa_ext_c = $this->gastos()->where('extraordinario', 1)->sum('importe_c');
+
+        $this->save();
+    }
+
+    public function liquidar(ConceptosLiquidablesAggregator $conceptosLiquidablesAggregator)
+    {
+        DB::transaction(function() use($conceptosLiquidablesAggregator){
             
             $propiedades = Propiedad::liquidables();
 
@@ -76,17 +89,17 @@ class Presupuesto extends Model
                 $cupon = Cupon::create([
                     'propiedad_id' => $propiedad->id,
                     'presupuesto_id' => $this->id,
-                ] );
+                ]);
 
                 // Expenas ordinarias, extraordinarias, multas, notas de crédito...
-                foreach ($conceptosLiquidables as $conceptoLiquidable){
+                foreach ($conceptosLiquidablesAggregator->getConceptos() as $concepto){
 
-                    $importe = $conceptoLiquidable->calcularImporte($propiedad);
+                    $importe = $concepto->calcularImporte($this, $propiedad);
 
                     if($importe <> 0){ // puede ser negativo
                         $cupon_conceptos[] = new CuponConceptos([
                             'cupon_id' => $cupon->id,
-                            'concepto_id' => $conceptoLiquidable->getId(),
+                            'concepto_id' => $concepto->getId(),
                             'importe' => $importe,
                             'importe_formula' => '0,00000001 * 12500000 + ...'
                         ]);

@@ -18,6 +18,10 @@ class GastosController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        $this->middleware('hasPropiedad');
+        
+        $this->middleware('hasPresupuesto');
     }
 
     /**
@@ -40,8 +44,7 @@ class GastosController extends Controller
         ]);
 
         // TODO: RESOLVER EXTRAORDINARIAS
-        //dd($gasto);
-        $presupuesto->addGasto($gasto);
+        $presupuesto->saveGasto($gasto);
 
         return back();
     }
