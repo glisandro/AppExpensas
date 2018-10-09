@@ -18,3 +18,7 @@
         @endforeach
     </div>
 </div>
+
+<ul>
+    <li>Opciones Globales</li>
+</ul>

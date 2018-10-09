@@ -46,6 +46,7 @@
                 <div class="col-md-9">
                     <div class="tab-content">
                         @include('spark::shared.errors')
+                        @include('shared.messages')
                         <!-- Basic Info -->
                         <div role="tabcard" class="tab-pane active" id="basic">
                             @include('settings.consorcios.basicinfo')

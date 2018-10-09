@@ -6,7 +6,7 @@
             <!-- Application Dashboard -->
             <div class="row">
                 <div class="col-md-3 spark-settings-tabs">
-                    @include('shared.menu')
+                    @include('shared.menu-global')
                 </div>
                 <div class="col-md-9">
                     @include('spark::shared.errors')

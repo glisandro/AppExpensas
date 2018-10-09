@@ -3,7 +3,7 @@
 
                     <li class="nav-item ">
                         <a class="nav-link" href="/settings/consorcios/{{ request('consorcio')->id }}">
-                            <i class="fa fa-fw text-left fa-btn fa-cog"></i>{{__('Settings')}}
+                            <i class="fa fa-fw text-left fa-btn fa-cog"></i>{{request('consorcio')->name}}
                         </a>
                     </li>
                     <li class="nav-item ">
