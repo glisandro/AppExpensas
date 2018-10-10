@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
             return new MontoFijo();
         });
 
-        $this->app->tag([ExpensasOrinarias::class, ExpensasExtraordinarias::class, MontoFijo::class], 'conceptos');
+        $this->app->tag([ExpensasOrinarias::class, ExpensasExtraordinarias::class], 'conceptos');
 
         $this->app->bind(ConceptosLiquidablesAggregator::class, function ($app) {
             return new ConceptosLiquidablesAggregator($app->tagged('conceptos'));
