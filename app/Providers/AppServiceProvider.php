@@ -28,7 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        setlocale(LC_TIME, config('app.locale') . '_ES');
+        setlocale(LC_TIME, config('app.locale') . '_ES.UTF-8');
+        
 
         $this->app->bind(ExpensasOrinarias::class, function ($app) {
             return new ExpensasOrinarias();
