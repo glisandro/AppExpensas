@@ -1,4 +1,4 @@
-@extends('layout.consorcios')
+@extends('layout.appexpensas')
 
 @section('menu')
     @include('shared.menu-global')

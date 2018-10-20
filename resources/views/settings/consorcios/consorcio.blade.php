@@ -1,4 +1,4 @@
-@extends('spark::layouts.app')
+@extends('layout.appexpensas')
 
 @section('scripts')
 
@@ -15,6 +15,7 @@
                             {{__('Settings')}}
                         </h3>
                         <ul class="nav flex-column mb-4 ">
+
                             <li class="nav-item ">
                                 <a class="nav-link" href="#basic" aria-controls="basic" role="tab" data-toggle="tab">
                                     <svg class="icon-20 " viewBox="0 0 20 20 " xmlns="http://www.w3.org/2000/svg ">

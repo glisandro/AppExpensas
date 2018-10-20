@@ -1,4 +1,4 @@
-@extends('layout.consorcios')
+@extends('layout.appexpensas')
 
 @section('menu')
     @include('shared.menu-consorcio')
@@ -6,8 +6,19 @@
 
 @section('content-main')
     <div class="card card-default">
-        <div class="card-header">{{__('Dashboard')}} <a href="{{ route('consorcios.presupuestos.history', [$consorcio], false) }}">{{ __('History') }}</a></div>
+        <div class="card-header">{{__('Dashboard')}} @if ($hasHistory)<a href="{{ route('consorcios.presupuestos.history', [$consorcio], false) }}">{{ __('History') }}</a>@endif</div>
         <div class="card-body">
+            <div class="row">
+                <form action="{{route('consorcios.presupuestos.liquidar', [$consorcio, $presupuesto], false)}}" method="post" role="form">
+                    <div class="form-group row mb-0">
+                        <div class="offset-md-4 col-md-6">
+                            <button type="submit" class="btn btn-primary">{{__('Liquidar')}}</button>
+                            {{ csrf_field() }}
+                            <a href="{{route('consorcios.presupuestos.cupones',[$consorcio, $presupuesto])}}" target="_blank" class="btn btn-success">{{ __('Imprimir cupones') }}</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <form action="{{route('consorcios.presupuestos.liquidar', [$consorcio, $presupuesto], false)}}" method="post" role="form">
                 <div class="form-group row">
                     <label class="col-md-4 col-form-label text-md-right">{{__('Periodo')}}</label>
