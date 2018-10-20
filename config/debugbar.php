@@ -101,7 +101,7 @@ return [
      */
 
     'collectors' => [
-        'phpinfo'         => true,  // Php version
+        'phpinfo'         => false,  // Php version
         'messages'        => true,  // Messages
         'time'            => true,  // Time Datalogger
         'memory'          => true,  // Memory usage
@@ -111,10 +111,10 @@ return [
         'views'           => true,  // Views with their data
         'route'           => true,  // Current route information
         'auth'            => true, // Display Laravel authentication status
-        'gate'            => true, // Display Laravel Gate checks
-        'session'         => true,  // Display session data
-        'symfony_request' => true,  // Only one can be enabled..
-        'mail'            => true,  // Catch mail messages
+        'gate'            => false, // Display Laravel Gate checks
+        'session'         => false,  // Display session data
+        'symfony_request' => false,  // Only one can be enabled..
+        'mail'            => false,  // Catch mail messages
         'laravel'         => false, // Laravel version and environment
         'events'          => false, // All events fired
         'default_request' => false, // Regular or special Symfony request logger
