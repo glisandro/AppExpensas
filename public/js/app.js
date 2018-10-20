@@ -67532,6 +67532,8 @@ __webpack_require__("./resources/js/components/home.js");
 
 __webpack_require__("./resources/js/components/settings/settings.js");
 
+//require('./consorcios/presupuestos/storefirstgasto'); no se usa
+
 /***/ }),
 
 /***/ "./resources/js/components/home.js":

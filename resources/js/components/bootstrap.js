@@ -13,4 +13,6 @@ require('./../spark-components/bootstrap');
 
 require('./home');
 
-require('./settings/settings')
+require('./settings/settings');
+
+//require('./consorcios/presupuestos/storefirstgasto'); no se usa
