@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ConceptoSeeder::class);
 
+        $this->call(RubroTableSeeder::class);
+
         Model::reguard();
     }
 }
