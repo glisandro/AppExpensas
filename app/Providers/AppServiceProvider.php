@@ -7,6 +7,7 @@ use App\Expensas\Liquidacion\Conceptos\ExpensasExtraordinarias;
 use App\Expensas\Liquidacion\Conceptos\ExpensasOrinarias;
 use App\Expensas\Liquidacion\Conceptos\MontoFijo;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -47,6 +48,11 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ConceptosLiquidablesAggregator::class, function ($app) {
             return new ConceptosLiquidablesAggregator($app->tagged('conceptos'));
+        });
+
+        //Extending blade
+        Blade::directive('extension_format_number_es', function ($expression) {
+            return "<?php echo number_format($expression, 2 , '.', ','); ?>";
         });
     }
 }
