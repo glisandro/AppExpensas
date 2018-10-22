@@ -15,16 +15,16 @@ class CreatePresupuestosTable extends Migration
     {
         Schema::create('presupuestos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('periodo');
+            $table->string('periodo');//TODO: vvambiar a date
             $table->integer('consorcio_id');
             $table->date('desde');
             $table->date('hasta');
-            $table->double('total_expensa_a');
-            $table->double('total_expensa_b');
-            $table->double('total_expensa_c');
-            $table->double('total_expensa_ext_a');
-            $table->double('total_expensa_ext_b');
-            $table->double('total_expensa_ext_c');
+            $table->double('total_expensa_a', 20, 2)->default(0);
+            $table->double('total_expensa_b', 20, 2)->default(0);
+            $table->double('total_expensa_c', 20, 2)->default(0);
+            $table->double('total_expensa_ext_a', 20, 2)->default(0);
+            $table->double('total_expensa_ext_b', 20, 2)->default(0);
+            $table->double('total_expensa_ext_c', 20, 2)->default(0);
             $table->string('estado')->default('abierto');
             $table->timestamps();
         });
