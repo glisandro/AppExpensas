@@ -19,7 +19,7 @@ class RedirectIfNotHavePresupuesto
         $consorcio = $request->route('consorcio');
 
         if($consorcio->presupuestos->count() == 0){
-            return redirect()->route('consorcios.presupuestos.first', $consorcio);
+            return redirect()->route('consorcios.presupuestos.first', $consorcio)->with('warnings', __('Seleccione el perído para el primer presupuesto'));
         };
 
         return $next($request);
