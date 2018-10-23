@@ -29,15 +29,24 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('/', 'ConsorciosController@redirectToDefaultSection')->name('consorcios.redirectToDefaultSection');
 
-        Route::get('/presupuestos/first','Consorcios\\PresupuestosController@first')->name('consorcios.presupuestos.first');
+        Route::get('/presupuestos/first/{mes?}','Consorcios\\PresupuestosController@first')->name('consorcios.presupuestos.first')->where('mes','^\-?[0-9]\d{0,1}$')->middleware('RedirectIfHasPresupuesto');
+        Route::post('/presupuestos/storefirt','Consorcios\\PresupuestosController@storefirst')->name('consorcios.presupuestos.storefirst')->middleware('RedirectIfHasPresupuesto');
+        Route::post('/presupuestos/store','Consorcios\\PresupuestosController@store')->name('consorcios.presupuestos.store');
+
         Route::prefix('presupuestos')->group(function(){
             Route::get('/','Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');
             Route::get('/history','Consorcios\\PresupuestosController@history')->name('consorcios.presupuestos.history');
             Route::get('/actual/{presupuesto}','Consorcios\\PresupuestosController@actual')->name('consorcios.presupuestos.actual');
+
             Route::post('/actual/{presupuesto}','Consorcios\\PresupuestosController@liquidar')->name('consorcios.presupuestos.liquidar');
+
             Route::post('/{presupuesto}/gastos/store','Consorcios\\GastosController@store')->name('consorcios.gastos.store');
         });
 
+        Route::prefix('presupuestos/{presupuesto}')->group(function(){
+            Route::post('/update','Consorcios\\PresupuestosController@update')->name('consorcios.presupuestos.update');
+            Route::get('/cupones','Consorcios\\PrintCuponesController')->name('consorcios.presupuestos.cupones');
+        });
         Route::get('/cc','Consorcios\\CuentaCorrienteController@propiedades')->name('consorcios.cuentacorriente.propiedades');
         Route::get('/propiedades/{propiedad}/cc','Consorcios\\CuentaCorrienteController@show')->name('consorcios.cuentacorriente.show');
     });
