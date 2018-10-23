@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 class ConsorciosController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * ConsorciosController constructor.
      */
     public function __construct()
     {
@@ -18,9 +16,8 @@ class ConsorciosController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return Response
+     * @param Consorcio $consorcio
+     * @return mixed
      */
     public function redirectToDefaultSection(Consorcio $consorcio)
     {
@@ -28,6 +25,9 @@ class ConsorciosController extends Controller
         return redirect()->route('consorcios.presupuestos', $consorcio->id);
     }
 
+    /**
+     * @return mixed
+     */
     public function consorcios()
     {
         $consorcios = Consorcio::all();

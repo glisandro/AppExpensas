@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 class WelcomeController extends Controller
 {
     /**
-     * Show the application splash screen.
-     *
-     * @return Response
+     * @return mixed
      */
     public function show()
     {

@@ -12,7 +12,7 @@ class ConceptosLiquidablesAggregator
 
     /**
      * ConceptosLiquidablesAggregator constructor.
-     * @param $conceptos
+     * @param array $conceptos
      */
     public function __construct(array $conceptos)
     {
@@ -20,7 +20,7 @@ class ConceptosLiquidablesAggregator
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getConceptos() : array
     {
