@@ -5,51 +5,34 @@ namespace Tests\Unit;
 use App\Consorcio;
 use App\Team;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\CreatesUsers;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ConsorciosTest extends TestCase
 {
     use RefreshDatabase, CreatesUsers;
 
     /** @test */
-    function if_the_team_global_scope_works()
+    function the_authenticated_user_get_only_consorcios_from_current_team()
     {
         $this->withoutExceptionHandling();
 
+        // Creo un equipo con con un consorcio
+        list($currentTeam, $currentConsorcio) = $this->createTeamWithConsorcio('Team 1', 'Consorcio 1');
+
         // Se registra con un equipo
-        $user = $this->createUserWithTeam();
-
         // Ingresa al sitio
-        $this->actingAs($user);
+        $this->actingAs($user = $this->userFromTeam($currentTeam));
 
-        // Crea el el segundo equipo
-        $team2 = factory(Team::class)->create(['name' => 'Equipo 2', 'slug' => 'equipo-2']);
+        list($anotherTeam, $anotherConsorcio) = $this->createTeamWithConsorcio('Team 2', 'Consorcio 2');
 
-        $user->teams()->attach($team2,['role' => 'owner']);
-
-
-        // Crea un consorcio para su equipo por defecto
-        factory(Consorcio::class)->create([
-            'name' => 'Equipo 1',
-            'team_id' => $user->currentTeam()->id
-        ]);
-
-        // Crea un consorcio para su equipo por defecto
-        factory(Consorcio::class)->create([
-            'name' => 'Consorcio para el segundo equipo',
-            'team_id' => $team2->id
-        ]);
+        $user->teams()->attach($anotherTeam, ['role' => 'owner']);
 
         //Como esta logeado el global scope debe traer solo los de su "currentTeam"
         $consorcios = Consorcio::all();
 
-        foreach ($consorcios as $consorcio) {
-            $this->assertTrue($consorcio->team_id === $user->currentTeam()->id);
-        }
-
+        $this->assertTrue($consorcios->contains($currentConsorcio));
+        $this->assertFalse($consorcios->contains($anotherConsorcio));
     }
-
-
 }

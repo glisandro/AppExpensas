@@ -2,16 +2,17 @@
 
 namespace Tests\Feature;
 
-use App\{Team,User};
+use App\{
+    Team, User
+};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\CreatesUsers;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RoutesSimpleTest extends TestCase
 {
     use RefreshDatabase, CreatesUsers;
-    
+
     /** @test */
     function home()
     {
@@ -39,13 +40,19 @@ class RoutesSimpleTest extends TestCase
             ->assertSee('Password');
     }
 
-    public function is_user_logged_in()  {
+    /** @test */
+    function is_user_logged_in()
+    {
 
-        $user = $this->createUserWithTeam();
+        list($team, $consorcio) = $this->createTeamWithConsorcio('Team 1', 'Consorcio 1');
+
+        $user = $this->userFromTeam($team);
 
         $this->actingAs($user);
 
         $this->get('/consorcios')
-            ->assertSee('Dashboard');
+            ->assertStatus(200)
+            ->assertSee('Dashboard')
+            ->assertSee($consorcio->name);
     }
 }
