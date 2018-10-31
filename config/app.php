@@ -164,6 +164,7 @@ return [
         App\Providers\SparkServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class
 
     ],
 
@@ -215,7 +216,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-
+        'AppExpensas' => \App\Facades\AppExpensas::class,
     ],
+
+
+    'faker_locale' => 'es_AR',
 
 ];
