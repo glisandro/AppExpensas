@@ -2,10 +2,6 @@
 
 namespace App\Expensas\Liquidacion\Conceptos;
 
-use App\{
-    Presupuesto, Propiedad
-};
-
 class ConceptosLiquidablesAggregator
 {
     protected $conceptos = [];

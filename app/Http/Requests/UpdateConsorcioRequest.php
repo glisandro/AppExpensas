@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Consorcio;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class UpdateConsorcioRequest extends FormRequest
 {
@@ -40,7 +40,7 @@ class UpdateConsorcioRequest extends FormRequest
 
     public function updateConsorcio(Consorcio $consorcio)
     {
-        DB::transaction(function() use ($consorcio){
+        DB::transaction(function () use ($consorcio) {
             $consorcio->name = $this->name;
             $consorcio->save();
         });

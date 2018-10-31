@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Consorcio;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePropiedadRequest;
 use App\Http\Requests\UpdatePropiedadRequest;
-use App\Http\Controllers\Controller;
 
 class ConsorcioPropiedadController extends Controller
 {
@@ -13,7 +13,7 @@ class ConsorcioPropiedadController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function store(CreatePropiedadRequest $request, Consorcio $consorcio)
     {
         $request->createPropiedad($consorcio);

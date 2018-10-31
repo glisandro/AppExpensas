@@ -9,7 +9,7 @@ class CuponConceptos extends Model
     public $guarded = [];
 
     public $table = 'cupones_conceptos';
-    
+
     public function cupon()
     {
         return $this->belongsTo(Cupon::class);
@@ -22,7 +22,7 @@ class CuponConceptos extends Model
 
     public function getImporteAttribute($value)
     {
-        return number_format($value,2,",",".");
+        return number_format($value, 2, ",", ".");
     }
-    
+
 }

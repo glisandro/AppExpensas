@@ -2,15 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class Cupon extends Model
 {
     public $guarded = [];
 
     public $table = 'cupones';
-    
+
     public function presupuesto()
     {
         return $this->belongsTo(Presupuesto::class);
@@ -28,6 +28,6 @@ class Cupon extends Model
 
     public function getTotalAttribute($value)
     {
-        return number_format($value,2,",",".");
+        return number_format($value, 2, ",", ".");
     }
 }

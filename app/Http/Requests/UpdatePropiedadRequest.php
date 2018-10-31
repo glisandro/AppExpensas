@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Propiedad;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class UpdatePropiedadRequest extends FormRequest
 {
@@ -42,18 +43,20 @@ class UpdatePropiedadRequest extends FormRequest
     {
         $formPropiedades = $this->input('propiedades');
 
-        if($formPropiedades) {
-            foreach ($this->all()['propiedades'] as $row) {
-                $propiedad = Propiedad::findOrFail($row['id']);
-                $propiedad->denominacion = $row['denominacion'];
-                $propiedad->coeficiente_a = $row['coeficiente_a'];
-                $propiedad->coeficiente_b = $row['coeficiente_b'];
-                $propiedad->coeficiente_c = $row['coeficiente_c'];
-                $propiedad->coeficiente_d = $row['coeficiente_d'];
-                $propiedad->coeficiente_e = $row['coeficiente_e'];
-                $propiedad->coeficiente_f = $row['coeficiente_f'];
-                $propiedad->save();
-            }
+        if ($formPropiedades) {
+            DB::transaction(function () {
+                foreach ($this->all()['propiedades'] as $row) {
+                    $propiedad = Propiedad::findOrFail($row['id']);
+                    $propiedad->denominacion = $row['denominacion'];
+                    $propiedad->coeficiente_a = $row['coeficiente_a'];
+                    $propiedad->coeficiente_b = $row['coeficiente_b'];
+                    $propiedad->coeficiente_c = $row['coeficiente_c'];
+                    $propiedad->coeficiente_d = $row['coeficiente_d'];
+                    $propiedad->coeficiente_e = $row['coeficiente_e'];
+                    $propiedad->coeficiente_f = $row['coeficiente_f'];
+                    $propiedad->save();
+                }
+            });
         }
     }
 

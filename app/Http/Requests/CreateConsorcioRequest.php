@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 use App\Consorcio;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CreateConsorcioRequest extends FormRequest
 {
@@ -41,7 +41,7 @@ class CreateConsorcioRequest extends FormRequest
 
     public function createConsorcio()
     {
-        return DB::transaction(function(){
+        return DB::transaction(function () {
             return Consorcio::create([
                 'name' => $this->name,
                 'team_id' => Auth::user()->currentTeam()->id

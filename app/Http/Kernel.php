@@ -60,7 +60,7 @@ class Kernel extends HttpKernel
         'subscribed' => \Laravel\Spark\Http\Middleware\VerifyUserIsSubscribed::class,
         'teamSubscribed' => \Laravel\Spark\Http\Middleware\VerifyTeamIsSubscribed::class,
         'RedirectIfHasNotPresupuesto' => \App\Http\Middleware\RedirectIfNotHavePresupuesto::class,
-        'RedirectIfHasPresupuesto'  => \App\Http\Middleware\RedirectIfHavePresupuesto::class,
-        'RedirectIfHasNotPropiedad'  => \App\Http\Middleware\RedirectIfNotHavePropiedad::class,
+        'RedirectIfHasPresupuesto' => \App\Http\Middleware\RedirectIfHavePresupuesto::class,
+        'RedirectIfHasNotPropiedad' => \App\Http\Middleware\RedirectIfNotHavePropiedad::class,
     ];
 }

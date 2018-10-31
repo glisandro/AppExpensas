@@ -11,7 +11,7 @@ class ExpensasOrinarias extends ConceptoLiquidable
     protected $id = 1;
 
     protected $incrementa = true;
-    
+
     public function calcularImporte(Presupuesto $presupuesto, Propiedad $propiedad)
     {
         $total = $propiedad->coeficiente_a * $presupuesto->total_expensa_a;

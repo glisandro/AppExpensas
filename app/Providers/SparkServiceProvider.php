@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Laravel\Spark\Spark;
 use Laravel\Spark\Providers\AppServiceProvider as ServiceProvider;
+use Laravel\Spark\Spark;
 
 class SparkServiceProvider extends ServiceProvider
 {
