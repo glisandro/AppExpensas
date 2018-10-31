@@ -6,7 +6,7 @@ use App\Expensas\Liquidacion\Conceptos\ConceptosLiquidablesAggregator;
 use App\Expensas\Liquidacion\Conceptos\ExpensasExtraordinarias;
 use App\Expensas\Liquidacion\Conceptos\ExpensasOrinarias;
 use App\Expensas\Liquidacion\Conceptos\MontoFijo;
-use Carbon\Carbon;
+use App\Helpers\AppExpensas;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         setlocale(LC_TIME, config('app.locale') . '_ES.UTF-8');
-        
+
 
         $this->app->bind(ExpensasOrinarias::class, function ($app) {
             return new ExpensasOrinarias();
@@ -53,6 +53,10 @@ class AppServiceProvider extends ServiceProvider
         //Extending blade
         Blade::directive('extension_format_number_es', function ($expression) {
             return "<?php echo number_format($expression, 2 , '.', ','); ?>";
+        });
+
+        $this->app->bind('appexpensas', function() {
+            return new AppExpensas();
         });
     }
 }
