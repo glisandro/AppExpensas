@@ -44,7 +44,7 @@ class RoutesSimpleTest extends TestCase
     function is_user_logged_in()
     {
 
-        list($team, $consorcio) = $this->createTeamWithConsorcio('Team 1', 'Consorcio 1');
+        list($team, $consorcio) = $this->createTeamWithConsorcio('Team 1', 'Consorcio 1', 1);
 
         $user = $this->userFromTeam($team);
 
