@@ -14,30 +14,51 @@ class Presupuesto extends Model
     protected $guarded = [];
 
     CONST ESTADO_ABIERTO = 'ABIERTO';
-    
+
     CONST ESTADO_CERRADO = 'CERRADO';
+
+    CONST RULE_TOTALES = 'numeric|min:0|max:100000000000';
+
+    CONST RULES = [
+        'total_expensa_a' => SELF::RULE_TOTALES,
+        'total_expensa_b' => SELF::RULE_TOTALES,
+        'total_expensa_c' => SELF::RULE_TOTALES,
+        'total_expensa_ext_a' => SELF::RULE_TOTALES,
+        'total_expensa_ext_b' => SELF::RULE_TOTALES,
+        'total_expensa_ext_c' => SELF::RULE_TOTALES,
+    ];
+
+    CONST MESSAJES = [
+        'numeric' => 'El campo ":attribute" debe ser numérico.',
+        'min' => 'El campo ":attribute" puede ser negativo.',
+        'max' => 'El campo ":attribute" supera el máximo permitido.',
+    ];
 
     protected $conceptosLiquidables;
 
-
-    public function gastos()
+    public function detalles()
     {
-        return $this->hasMany(Gasto::class);
+        return $this->hasMany(PresupuestoDetalle::class);
+    }
+
+    public function cupones()
+    {
+        return $this->hasMany(Cupon::class);
     }
 
     protected static function boot()
     {
         parent::boot();
 
-       static::addGlobalScope('consorcio_id', function (Builder $builder) {
-
+        static::addGlobalScope('consorcio_id', function (Builder $builder) {
             $builder->where('consorcio_id', request('consorcio')->id);
         });
     }
 
     public function scopeAbierto($query)
     {
-        return $query->where('estado', self::ESTADO_ABIERTO);
+
+        return $query->where('estado', self::ESTADO_ABIERTO)->latest()->first();
     }
 
     public function scopeCerrado($query)
@@ -45,15 +66,26 @@ class Presupuesto extends Model
         return $query->where('estado', self::ESTADO_CERRADO);
     }
 
-    public function setConceptosLiquidables(array $conceptos)
+
+    public static function hasCerrados()
     {
-        $this->conceptosLiquidables =  $conceptos;
+        return self::cerrado()->count() > 0;
     }
 
-    public function saveGasto(Gasto $gasto)
+    public static function hasAbierto()
     {
-        DB::transaction(function() use($gasto){
-            $this->gastos()->save($gasto);
+        return self::abierto()->count() > 0;
+    }
+
+    public function setConceptosLiquidables(array $conceptos)
+    {
+        $this->conceptosLiquidables = $conceptos;
+    }
+
+    public function saveDetalle(PresupuestoDetalle $detalle)
+    {
+        DB::transaction(function () use ($detalle) {
+            $this->detalles()->save($detalle);
 
             $this->calcularTotales();
         });
@@ -61,26 +93,26 @@ class Presupuesto extends Model
         return $this;
     }
 
-    protected function calcularTotales()
+    public function calcularTotales()
     {
         // TODO: Create test
-        $this->total_expensa_a = $this->gastos()->where('extraordinario', 0)->sum('importe_a');
-        $this->total_expensa_b = $this->gastos()->where('extraordinario', 0)->sum('importe_b');
-        $this->total_expensa_c = $this->gastos()->where('extraordinario', 0)->sum('importe_c');
-        $this->total_expensa_ext_a = $this->gastos()->where('extraordinario', 1)->sum('importe_a');
-        $this->total_expensa_ext_b = $this->gastos()->where('extraordinario', 1)->sum('importe_b');
-        $this->total_expensa_ext_c = $this->gastos()->where('extraordinario', 1)->sum('importe_c');
+        $this->total_expensa_a = $this->detalles()->sum('importe_a');
+        $this->total_expensa_b = $this->detalles()->sum('importe_b');
+        $this->total_expensa_c = $this->detalles()->sum('importe_c');
+        $this->total_expensa_ext_a = $this->detalles()->sum('importe_ext_a');
+        $this->total_expensa_ext_b = $this->detalles()->sum('importe_ext_b');
+        $this->total_expensa_ext_c = $this->detalles()->sum('importe_ext_c');
 
         $this->save();
     }
 
     public function liquidar(ConceptosLiquidablesAggregator $conceptosLiquidablesAggregator)
     {
-        DB::transaction(function() use($conceptosLiquidablesAggregator){
-            
+        DB::transaction(function () use ($conceptosLiquidablesAggregator) {
+
             $propiedades = Propiedad::liquidables();
 
-            foreach ($propiedades as $propiedad){
+            foreach ($propiedades as $propiedad) {
 
                 $total = 0;
 
@@ -92,11 +124,11 @@ class Presupuesto extends Model
                 ]);
 
                 // Expenas ordinarias, extraordinarias, multas, notas de crédito...
-                foreach ($conceptosLiquidablesAggregator->getConceptos() as $concepto){
+                foreach ($conceptosLiquidablesAggregator->getConceptos() as $concepto) {
 
                     $importe = $concepto->calcularImporte($this, $propiedad);
 
-                    if($importe <> 0){ // puede ser negativo
+                    if ($importe <> 0) { // puede ser negativo
                         $cupon_conceptos[] = new CuponConceptos([
                             'cupon_id' => $cupon->id,
                             'concepto_id' => $concepto->getId(),
@@ -113,12 +145,11 @@ class Presupuesto extends Model
                 $cupon->conceptos()->saveMany($cupon_conceptos);
 
             }
-            
+
             $this->estado = Presupuesto::ESTADO_CERRADO;
             $this->save();
         });
     }
-
 
 
 }

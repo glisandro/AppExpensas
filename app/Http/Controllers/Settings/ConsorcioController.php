@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Consorcio;
+use App\Facades\AppExpensas;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateConsorcioRequest;
 use App\Http\Requests\UpdateConsorcioRequest;
@@ -29,7 +30,7 @@ class ConsorcioController extends Controller
     {
         $lastId = $request->createConsorcio();
 
-        return redirect()->route('settings.consorcio.index', $lastId);
+        return redirect(route('settings.consorcio.index', $lastId) . "#/uf")->with('success', __('Ingrese las Unidades Funcionales del consorcio.'));
     }
 
     public function edit(UpdateConsorcioRequest $request, Consorcio $consorcio)
@@ -37,7 +38,6 @@ class ConsorcioController extends Controller
         $request->updateConsorcio($consorcio);
 
         // TODO: Flash message
-
         return redirect()->route('settings.consorcio.index', $consorcio);
     }
 

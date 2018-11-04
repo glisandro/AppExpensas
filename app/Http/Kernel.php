@@ -59,8 +59,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'subscribed' => \Laravel\Spark\Http\Middleware\VerifyUserIsSubscribed::class,
         'teamSubscribed' => \Laravel\Spark\Http\Middleware\VerifyTeamIsSubscribed::class,
-        'RedirectIfHasNotPresupuesto' => \App\Http\Middleware\RedirectIfNotHavePresupuesto::class,
-        'RedirectIfHasPresupuesto' => \App\Http\Middleware\RedirectIfHavePresupuesto::class,
-        'RedirectIfHasNotPropiedad' => \App\Http\Middleware\RedirectIfNotHavePropiedad::class,
+        'RedirectIfNotHavePresupuesto' => \App\Http\Middleware\RedirectIfNotHavePresupuesto::class,
+        'RedirectIfNotHavePropiedad' => \App\Http\Middleware\RedirectIfNotHavePropiedad::class,
+        'RedirectIfNotHaveConsorcio' => \App\Http\Middleware\RedirectIfNotHaveConsorcio::class,
     ];
 }

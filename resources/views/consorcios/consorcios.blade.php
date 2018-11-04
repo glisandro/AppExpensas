@@ -10,7 +10,7 @@
         <div class="card-body">
             @foreach($consorcios as $consorcio)
                 <ul>
-                    <li><a href="{{ route('consorcios.redirectToDefaultSection', $consorcio->id) }}">{{ $consorcio->name }}</a> </li>
+                    <li><a href="{{ route('consorcios.default_section', $consorcio->id) }}">{{ $consorcio->name }}</a> </li>
                 </ul>
             @endforeach
         </div>

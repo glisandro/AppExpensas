@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Consorcio;
+use App\Facades\AppExpensas;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePropiedadRequest;
 use App\Http\Requests\UpdatePropiedadRequest;
@@ -18,18 +19,15 @@ class ConsorcioPropiedadController extends Controller
     {
         $request->createPropiedad($consorcio);
 
-        return $this->redirectPreviousTab("uf");
+        return AppExpensas::redirectPreviousTab("uf");
     }
 
     public function update(UpdatePropiedadRequest $request, Consorcio $consorcio)
     {
         $request->updatePropiedades();
 
-        return $this->redirectPreviousTab("uf");
+        return AppExpensas::redirectPreviousTab("uf");
     }
 
-    protected function redirectPreviousTab($tab)
-    {
-        return redirect(url()->previous() . "#/" . $tab);
-    }
+    
 }

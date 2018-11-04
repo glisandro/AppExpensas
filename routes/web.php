@@ -13,7 +13,7 @@
 
 Route::get('/', 'WelcomeController@show');
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth','web'])->group(function(){
     Route::prefix('settings/consorcios')->group(function(){
         Route::get('/', 'Settings\\ConsorcioController@create')->name('settings.consorcio.create');
         Route::post('/create', 'Settings\\ConsorcioController@store')->name('settings.consorcio.store');
@@ -23,30 +23,30 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/{consorcio}/propiedades/edit', 'Settings\\ConsorcioPropiedadController@update')->name('settings.consorcio.propiedades.update');
     });
 
-    Route::get('/consorcios', 'ConsorciosController@consorcios');
+    Route::get('/consorcios', 'ConsorciosController@consorcios')->name('consorcios');
     
     Route::prefix('consorcios/{consorcio}')->group(function(){
 
-        Route::get('/', 'ConsorciosController@redirectToDefaultSection')->name('consorcios.redirectToDefaultSection');
+        Route::get('/', 'Consorcios\\PresupuestoController@actual')->name('consorcios.default_section');
 
-        Route::get('/presupuestos/first/{mes?}','Consorcios\\PresupuestosController@first')->name('consorcios.presupuestos.first')->where('mes','^\-?[0-9]\d{0,1}$')->middleware('RedirectIfHasPresupuesto');
-        Route::post('/presupuestos/storefirt','Consorcios\\PresupuestosController@storefirst')->name('consorcios.presupuestos.storefirst')->middleware('RedirectIfHasPresupuesto');
-        Route::post('/presupuestos/store','Consorcios\\PresupuestosController@store')->name('consorcios.presupuestos.store');
+        Route::prefix('presupuestos')->group(function() {
+            Route::get('/', 'Consorcios\\PresupuestoController@actual')->name('consorcios.presupuesto.actual');
+            Route::get('/first/{periodo?}', 'Consorcios\\PresupuestoController@selectfirst')->name('consorcios.presupuesto.selectfirst')->where('periodo', '20\d{2}-(0[1-9]|1[012])');
+            Route::post('/storefirt', 'Consorcios\\PresupuestoController@storefirst')->name('consorcios.presupuesto.storefirst');
 
-        Route::prefix('presupuestos')->group(function(){
-            Route::get('/','Consorcios\\PresupuestosController@index')->name('consorcios.presupuestos');
-            Route::get('/history','Consorcios\\PresupuestosController@history')->name('consorcios.presupuestos.history');
-            Route::get('/actual/{presupuesto}','Consorcios\\PresupuestosController@actual')->name('consorcios.presupuestos.actual');
+            Route::post('/update','Consorcios\\PresupuestoLiquidacionController@update')->name('consorcios.presupuesto.update');
+            Route::post('/detalle/store','Consorcios\\PresupuestoLiquidacionController@detallestore')->name('consorcios.detalles.store');
+            //Route::post('/store','Consorcios\\PresupuestoLiquidacionController@store')->name('consorcios.presupuesto.store');
+            Route::get('/{presupuesto}/liquidar','Consorcios\\PresupuestoLiquidacionController@liquidar')->name('consorcios.presupuesto.liquidar');
 
-            Route::post('/actual/{presupuesto}','Consorcios\\PresupuestosController@liquidar')->name('consorcios.presupuestos.liquidar');
+            Route::get('/{presupuesto}/cupones','Consorcios\\PrintCuponesController')->name('consorcios.presupuesto.cupones');
 
-            Route::post('/{presupuesto}/gastos/store','Consorcios\\GastosController@store')->name('consorcios.gastos.store');
+            Route::get('/history','Consorcios\\PresupuestoController@history')->name('consorcios.presupuesto.history');
+            Route::get('/{presupuesto}/history','Consorcios\\PresupuestoController@historyshow')->name('consorcios.presupuesto.history.show');
+            Route::get('/{presupuesto}/eliminar','Consorcios\\PresupuestoLiquidacionController@liquidar')->name('consorcios.presupuesto.eliminar');
         });
 
-        Route::prefix('presupuestos/{presupuesto}')->group(function(){
-            Route::post('/update','Consorcios\\PresupuestosController@update')->name('consorcios.presupuestos.update');
-            Route::get('/cupones','Consorcios\\PrintCuponesController')->name('consorcios.presupuestos.cupones');
-        });
+
         Route::get('/cc','Consorcios\\CuentaCorrienteController@propiedades')->name('consorcios.cuentacorriente.propiedades');
         Route::get('/propiedades/{propiedad}/cc','Consorcios\\CuentaCorrienteController@show')->name('consorcios.cuentacorriente.show');
     });

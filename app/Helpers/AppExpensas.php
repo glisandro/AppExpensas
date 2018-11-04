@@ -6,15 +6,12 @@ use Carbon\Carbon;
 
 class AppExpensas
 {
-    public function getPeriodo($date, $mesVencido)
+    public function getPeriodo($date)
     {
         $periodoActual = $this->getPeriodoActual($date);
 
         $periodoStartEnd = $periodoActual->copy();
-
-        if ($mesVencido) {
-            $periodoStartEnd->subMonth();
-        }
+        $periodoStartEnd->subMonth();
 
         return [
             'periodo' => ucfirst($periodoActual->formatLocalized('%B %Y')),
@@ -33,5 +30,10 @@ class AppExpensas
         }
 
         return Carbon::parse($periodo);
+    }
+
+    public function redirectPreviousTab($tab)
+    {
+        return redirect(url()->previous() . "#/" . $tab);
     }
 }

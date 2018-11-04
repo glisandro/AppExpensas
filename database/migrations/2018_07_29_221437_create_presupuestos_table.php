@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePresupuestosTable extends Migration
 {
@@ -16,6 +16,7 @@ class CreatePresupuestosTable extends Migration
         Schema::create('presupuestos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('periodo');//TODO: vvambiar a date
+            $table->date('periodo_date');
             $table->integer('consorcio_id');
             $table->date('desde');
             $table->date('hasta');

@@ -8,6 +8,16 @@ use App\Presupuesto;
 
 class PrintCuponesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('RedirectIfNotHavePropiedad');
+
+        $this->middleware('RedirectIfNotHavePresupuesto');
+    }
+
     /**
      * @param Presupuesto $presupuesto
      * @param Consorcio $consorcio
@@ -23,7 +33,7 @@ class PrintCuponesController extends Controller
 
         $date = date('Y-m-d');
         $invoice = "2222";
-        $view = \View::make('consorcios.presupuestos.cupones', compact('data', 'date', 'invoice'))->render();
+        $view = \View::make('consorcios.presupuesto.cupones', compact('data', 'date', 'invoice'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('invoice');

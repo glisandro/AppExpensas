@@ -18,9 +18,9 @@ class CuentaCorrienteController extends Controller
     {
         $this->middleware('auth');
 
-        $this->middleware('RedirectIfHasNotPropiedad');
+        $this->middleware('RedirectIfNotHavePropiedad');
 
-        $this->middleware('RedirectIfHasNotPresupuesto');
+        $this->middleware('RedirectIfNotHavePresupuesto');
     }
 
     public function propiedades(Consorcio $consorcio)
