@@ -164,7 +164,8 @@ return [
         App\Providers\SparkServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        App\Providers\TelescopeServiceProvider::class
+        App\Providers\TelescopeServiceProvider::class,
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
 
     ],
 
@@ -217,6 +218,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'AppExpensas' => \App\Facades\AppExpensas::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 

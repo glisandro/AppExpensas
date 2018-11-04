@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Consorcio;
+use Exception;
 
 class ConsorciosController extends Controller
 {
@@ -22,6 +23,8 @@ class ConsorciosController extends Controller
      */
     public function redirectToDefaultSection(Consorcio $consorcio)
     {
+        throw new Exception('Accion no redirectToDefaultSection permitida');
+
         // TODO: Redireccionar segun el perfil del usuario, administracion, cobranzas, liquidación...
         return redirect()->route('consorcios.presupuestos', $consorcio->id);
     }
@@ -31,6 +34,7 @@ class ConsorciosController extends Controller
      */
     public function consorcios()
     {
+
         $consorcios = Consorcio::all();
 
         return view('consorcios.consorcios', compact('consorcios'));
