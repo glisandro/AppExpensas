@@ -1,5 +1,12 @@
 <?php
 
+use App\PresupuestoDetalle;
+use App\Team;
+use App\User;
+use App\Concepto;
+use App\Consorcio;
+use App\Propiedad;
+use App\Presupuesto;
 use Faker\Generator as Faker;
 
 /*
@@ -13,23 +20,36 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->firstName() . ' ' . $faker->lastName(),
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
     ];
 });
 
-$factory->define(App\Consorcio::class, function (Faker $faker) {
+$factory->define(Team::class, function (Faker $faker) {
+
+    $name = $faker->unique()->company;
+    $slug = str_slug($name, '-');
+
     return [
-        'name' => $faker->company,
-        'team_id' => 1
+        'name' => $name,
+        'slug' => $slug,
+        //'owner_id' => factory(User::class)->create()->id
     ];
 });
 
-$factory->define(App\Propiedad::class, function (Faker $faker) {
+
+$factory->define(Consorcio::class, function (Faker $faker) {
+    return [
+        'name' => $faker->company,
+        'team_id' => 1,
+    ];
+});
+
+$factory->define(Propiedad::class, function (Faker $faker) {
     return [
         'denominacion' => $faker->word,
         'consorcio_id' => 1,
@@ -42,24 +62,16 @@ $factory->define(App\Propiedad::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(\App\Team::class, function (Faker $faker) {
+$factory->define(Presupuesto::class, function (Faker $faker) {
 
-    $name = $faker->unique()->company;
-    $slug = str_slug($name, '-');
-
+    $periodo = \App\Facades\AppExpensas::getPeriodo($faker->year . '-' . $faker->month, 1);
+    
     return [
-        'name' => $name,
-        'slug' => $slug,
-        'owner_id' => 1
-    ];
-});
-
-$factory->define(App\Presupuesto::class, function (Faker $faker) {
-    return [
-        'periodo' => $faker->monthName . ' ' . $faker->year,
+        'periodo' => $periodo['periodo'],
+        'periodo_date' => $periodo['periodo_date'],
         'consorcio_id' => 1,
-        'desde' => '2018-07-01',
-        'hasta' => '2018-07-31',
+        'desde' => $periodo['desde'],
+        'hasta' => $periodo['hasta'],
         'total_expensa_a' => 1000.01,
         'total_expensa_b' => 0,
         'total_expensa_c' => 0,
@@ -70,8 +82,42 @@ $factory->define(App\Presupuesto::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(\App\Concepto::class, function(Faker $faker) {
+$factory->state(Presupuesto::class, Presupuesto::ESTADO_CERRADO, [
+    'estado' => Presupuesto::ESTADO_CERRADO,
+]);
+
+$factory->state(Presupuesto::class, Presupuesto::ESTADO_ABIERTO, [
+    'estado' => Presupuesto::ESTADO_ABIERTO,
+]);
+
+$factory->define(PresupuestoDetalle::class, function (Faker $faker) {
+    return [
+        'presupuesto_id' => 1,
+        'rubro_id' => 1,
+        'concepto' => 'Factura N° 1',
+        'importe_a' => 100.01,
+    ];
+});
+
+$factory->define(Concepto::class, function (Faker $faker) {
     return [
         'concepto' => 'Expensas Ordinarias'
+    ];
+});
+
+$factory->define(\App\Cupon::class, function (Faker $faker) {
+    return [
+        'propiedad_id' => 1,
+        'presupuesto_id' => 1,
+        'total' => 0
+    ];
+});
+
+$factory->define(\App\CuponConceptos::class, function (Faker $faker) {
+    return [
+   
+        'concepto_id' => 1,
+        'importe' => 0,
+        'importe_formula' => ''
     ];
 });

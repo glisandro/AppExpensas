@@ -11,6 +11,6 @@ class PropiedadTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Propiedad::class)->times(30)->create();
+        factory(\App\Propiedad::class)->times(10)->create();
     }
 }

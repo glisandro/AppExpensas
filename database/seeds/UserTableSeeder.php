@@ -13,16 +13,18 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         //Admin
-        factory(\App\User::class)->times(1)->create([
+        $owner = factory(\App\User::class, 1)->create([
             'name' => 'Admin',
             'email' => 'admin@appexpensas.com'
-        ])->each(function($u){
-            $u->teams()->attach(factory(Team::class)->create(),['role' => 'owner']);
+        ])->each(function ($u) {
+            $u->teams()->attach(factory(Team::class)->create(['owner_id' => $u->id]), ['role' => 'owner']);
         });
 
         //Fake users
-        factory(\App\User::class)->times(100)->create()->each(function($u){
-            $u->teams()->attach(factory(Team::class)->create(),['role' => 'owner']); // El array del segundo argumento se usa en la tabla pivot
-        });
+        $users = factory(\App\User::class)->times(99)->create();
+
+        $owner[0]->teams[0]->users()->attach($users, ['role' => 'member']);
+
+
     }
 }

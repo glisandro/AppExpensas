@@ -11,6 +11,6 @@ class ConsorcioTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Consorcio::class)->times(50)->create();
+        factory(\App\Consorcio::class)->times(10)->create();
     }
 }

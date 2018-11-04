@@ -11,13 +11,40 @@ class PresupuestoSeeder extends Seeder
      */
     public function run()
     {
-        //Consorcio 1
-        //factory(\App\Presupuesto::class)->times(10)->create([
-        //    'consorcio_id' => 1,
-       // ])->each(function($presupuesto){
 
+        factory(\App\Presupuesto::class)->states(\App\Presupuesto::ESTADO_CERRADO)->times(9)->create([
+            'consorcio_id' => 1,
+        ])->each(function($presupuesto){
             // generar gastos
-            //$u->teams()->attach(factory(\Laravel\Spark\Team::class)->create(),['role' => 'owner']);
-        //});
+            $rubros = \App\Rubro::all();
+
+            foreach ($rubros as $rubro){
+                $presupuesto->detalles()->saveMany(factory(\App\PresupuestoDetalle::class)->times(3)->make([
+                    'concepto' => 'Concepto Det. ' . $rubro->name,
+                    'rubro_id' => $rubro->id
+                ]));
+            }
+
+            $presupuesto->calcularTotales();
+
+        });
+
+        factory(\App\Presupuesto::class)->states(\App\Presupuesto::ESTADO_ABIERTO)->times(1)->create([
+            'consorcio_id' => 1,
+         ])->each(function($presupuesto){
+            $rubros = \App\Rubro::all();
+
+            foreach ($rubros as $rubro){
+                $presupuesto->detalles()->saveMany(factory(\App\PresupuestoDetalle::class)->times(3)->make([
+                    'concepto' => 'Concepto Det. ' . $rubro->name,
+                    'rubro_id' => $rubro->id
+                ]));
+            }
+
+            $presupuesto->calcularTotales();
+
+        });
+
+
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,17 +14,17 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(UserTableSeeder::class);
+        $this->call([
+            UserTableSeeder::class,
+            ConsorcioTableSeeder::class,
+            PropiedadTableSeeder::class,
 
-        $this->call(ConsorcioTableSeeder::class);
+            RubroTableSeeder::class, // Debe estar antes de Presupuesto
+            ConceptoSeeder::class,
+            PresupuestoSeeder::class,
+            CuponSeeder::class,
 
-        $this->call(PropiedadTableSeeder::class);
-
-        $this->call(PresupuestoSeeder::class);
-
-        $this->call(ConceptoSeeder::class);
-
-        $this->call(RubroTableSeeder::class);
+        ]);
 
         Model::reguard();
     }
