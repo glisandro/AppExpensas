@@ -54,8 +54,7 @@ class CreatePresupuestoRequest extends FormRequest
         $presupuesto = Presupuesto::latest()->first();
 
         if ($presupuesto->estado != Presupuesto::ESTADO_CERRADO){
-            abort(403, 'Unauthorized action.');
-            //TODO: ENVIAR LOG POR MAIL
+            throw new Exception('El presupuesto anterior debe estar cerrado.');
         }
 
         $nextPeriodoDate = Carbon::parse($presupuesto->periodo_date);
