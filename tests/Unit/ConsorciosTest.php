@@ -35,6 +35,26 @@ class ConsorciosTest extends TestCase
 
         $this->assertTrue($consorcios->contains($currentConsorcio));
         $this->assertFalse($consorcios->contains($anotherConsorcio));
+
+        //$this->get('/consorcios/1')
+           // ->assertSee('Dashboard');
     }
-    
+
+    /** @test */
+    public function si_un_usuario_autenticado_accede_solo_a_las_propiedades_del_consorcio_seleccionado()
+    {
+        //$this->withoutExceptionHandling();
+
+        // Creo un equipo con con un consorcio
+        // = $this->createConsorcioWithPropiedades('Consorcio 1');
+
+        // $propiedades = factory(Propiedad::class)->times(5)->create();
+
+        //$currentConsorcio->saveMany($propiedades->toArray());
+
+        // Se registra con un equipo
+        // Ingresa al sitio
+        //$this->actingAs($user = $this->userFromTeam($currentTeam));
+
+    }
 }
