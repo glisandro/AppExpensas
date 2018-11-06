@@ -15,12 +15,8 @@ use Laravel\Spark\Http\Controllers\Controller;
 
 class PresupuestoController extends Controller
 {
-
-    protected $conceptosLiquidables;
-
     /**
      * PresupuestoController constructor.
-     * @param ConceptosLiquidablesAggregator $conceptosLiquidables
      */
     public function __construct()
     {
@@ -29,7 +25,6 @@ class PresupuestoController extends Controller
         $this->middleware('RedirectIfNotHavePropiedad');
 
         $this->middleware('RedirectIfNotHavePresupuesto', ['except' => array('selectfirst', 'storefirst')]);
-
     }
 
     /**
