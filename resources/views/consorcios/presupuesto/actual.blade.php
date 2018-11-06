@@ -12,7 +12,7 @@
                 <div class="col-md-9 text-md-right">
                     <a href="{{route('consorcios.presupuesto.cupones', [$consorcio, $presupuesto])}}" target="_blank" class="btn btn-success">{{ __('Imprimir cupones') }}</a>
                     <a href="{{route('consorcios.presupuesto.liquidar', [$consorcio, $presupuesto])}}" class="btn btn-success">{{ __('Liquidar') }}</a>
-                    <a href="{{route('consorcios.presupuesto.eliminar', [$consorcio, $presupuesto])}}" target="_blank" class="btn btn-danger">{{ __('Eliminar') }}</a>
+                    <a href="{{route('consorcios.presupuesto.delete', $consorcio)}}" class="btn btn-danger">{{ __('Eliminar') }}</a>
                 </div>
             </div>
         </div>

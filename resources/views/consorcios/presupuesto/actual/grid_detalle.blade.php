@@ -3,11 +3,11 @@
     <div class="table-responsive">
         <table class="table table-valign-middle mb-0">
             <thead>
-                <th>Concepto</th>
-                <th>Importe A</th>
-                <th>Importe B</th>
-                <th>Importe C</th>
-                <th>Eliminar</th>
+            <th>Concepto</th>
+            <th>Importe A</th>
+            <th>Importe B</th>
+            <th>Importe C</th>
+            <th>Eliminar</th>
             </thead>
             @foreach($presupuesto->detalles as $detalle)
                 @if($detalle->rubro_id === $rubro->id)
@@ -16,12 +16,12 @@
                         <td>{{ $detalle->importe_a }}</td>
                         <td>{{ $detalle->importe_b }}</td>
                         <td>{{ $detalle->importe_c }}</td>
-                        <td><a href="{{ $detalle->id }}" class="btn btn-danger">{{ __('Eliminar') }}</a></td>
+                        <td><a href="{{ route('consorcios.presupuesto.detalle.delete', [$consorcio, $presupuesto, $detalle]) }}" class="btn btn-danger">{{ __('Eliminar') }}</a></td>
                     </tr>
                 @endif
             @endforeach
         </table>
-        <form action="{{route('consorcios.detalles.store', [$consorcio], false)}}" method="post" role="form">
+        <form action="{{route('consorcios.presupuesto.detalle.store', [$consorcio], false)}}" method="post" role="form">
             <table class="table table-valign-middle mb-0">
                 <thead>
                 <tr>

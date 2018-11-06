@@ -8,7 +8,9 @@ use App\Expensas\Liquidacion\Conceptos\ExpenasOrinarias;
 use App\Facades\AppExpensas;
 use App\Http\Requests\CreatePresupuestoRequest;
 use App\Presupuesto;
+use App\PresupuestoDetalle;
 use App\Rubro;
+use Illuminate\Support\Facades\Session;
 use Laravel\Spark\Http\Controllers\Controller;
 
 class PresupuestoController extends Controller
@@ -109,6 +111,18 @@ class PresupuestoController extends Controller
         $rubros = Rubro::all();
         //TODO: CAMBIAR A VISTA NO EDITABLE
         return view('consorcios.presupuesto.actual', compact('consorcio', 'presupuesto', 'hasHistory', 'rubros'));
+    }
+
+    public function detalledelete(Consorcio $consorcio, Presupuesto $presupuesto, PresupuestoDetalle $presupuestoDetalle)
+    {
+        //$detalle = PresupuestoDetalle::find($detalle->id);
+        if ($presupuesto->id == $presupuestoDetalle->presupuesto_id){ // solo por seguridad pero ya eta el global scope
+            $presupuestoDetalle->delete();
+            $presupuesto->calcularTotales();
+            Session::flash('success', __('Se eliminó correctamente.'));
+        }
+
+        return back();
     }
 
 }

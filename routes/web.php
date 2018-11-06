@@ -35,7 +35,8 @@ Route::middleware(['auth','web'])->group(function(){
             Route::post('/storefirt', 'Consorcios\\PresupuestoController@storefirst')->name('consorcios.presupuesto.storefirst');
 
             Route::post('/update','Consorcios\\PresupuestoLiquidacionController@update')->name('consorcios.presupuesto.update');
-            Route::post('/detalle/store','Consorcios\\PresupuestoLiquidacionController@detallestore')->name('consorcios.detalles.store');
+            Route::get('/delete','Consorcios\\PresupuestoLiquidacionController@delete')->name('consorcios.presupuesto.delete');
+            Route::post('/detalle/store','Consorcios\\PresupuestoLiquidacionController@detallestore')->name('consorcios.presupuesto.detalle.store');
             //Route::post('/store','Consorcios\\PresupuestoLiquidacionController@store')->name('consorcios.presupuesto.store');
             Route::get('/{presupuesto}/liquidar','Consorcios\\PresupuestoLiquidacionController@liquidar')->name('consorcios.presupuesto.liquidar');
 
@@ -43,7 +44,8 @@ Route::middleware(['auth','web'])->group(function(){
 
             Route::get('/history','Consorcios\\PresupuestoController@history')->name('consorcios.presupuesto.history');
             Route::get('/{presupuesto}/history','Consorcios\\PresupuestoController@historyshow')->name('consorcios.presupuesto.history.show');
-            Route::get('/{presupuesto}/eliminar','Consorcios\\PresupuestoLiquidacionController@liquidar')->name('consorcios.presupuesto.eliminar');
+
+            Route::get('/{presupuesto}/eliminar/{presupuestoDetalle}','Consorcios\\PresupuestoController@detalledelete')->name('consorcios.presupuesto.detalle.delete');
         });
 
 
