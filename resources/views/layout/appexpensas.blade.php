@@ -1,7 +1,7 @@
 @extends('spark::layouts.app')
 
 @section('content')
-    <div class="spark-screen container">
+    <div class="spark-screen container-full">
         <!-- Application Dashboard -->
         <div class="row">
             <div class="col-md-3 spark-settings-tabs">
