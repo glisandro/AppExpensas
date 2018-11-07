@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
 
             RubroTableSeeder::class, // Debe estar antes de Presupuesto
             ConceptoSeeder::class,
-            PresupuestoSeeder::class,
+           // PresupuestoSeeder::class,
             CuponSeeder::class,
 
         ]);
