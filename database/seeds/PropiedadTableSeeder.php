@@ -11,6 +11,9 @@ class PropiedadTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Propiedad::class)->times(10)->create();
+        factory(\App\Propiedad::class)->times(10)->create([
+            'coeficiente_a' => 0.1,
+            'coeficiente_d' => 0.1,
+        ]);
     }
 }

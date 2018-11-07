@@ -22,15 +22,15 @@
                         <input type="text" id="coeficiente_c" name="coeficiente_c" value="{{ old('coeficiente_c', '0.0000000') }}" class="form-control">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="coeficiente_d">{{__('Coeficiente D')}}</label>
+                        <label for="coeficiente_d">{{__('Coeficiente Ext. A')}}</label>
                         <input type="text" id="coeficiente_d" name="coeficiente_d" value="{{ old('coeficiente_d', '0.0000000') }}" class="form-control">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="coeficiente_e">{{__('Coeficiente E')}}</label>
+                        <label for="coeficiente_e">{{__('Coeficiente Ext. B')}}</label>
                         <input type="text" id="coeficiente_e" name="coeficiente_e" value="{{ old('coeficiente_e', '0.0000000') }}" class="form-control">
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="coeficiente_f">{{__('Coeficiente F')}}</label>
+                        <label for="coeficiente_f">{{__('Coeficiente Ext. C')}}</label>
                         <input type="text" id="coeficiente_f" name="coeficiente_f" value="{{ old('coeficiente_f', '0.0000000') }}" class="form-control">
                     </div>
                 </div>
@@ -41,45 +41,51 @@
         </div>
     </div>
 
-    <div class="card card-default">
-        <div class="card-header">{{__('Propiedades')}} - {{ __('Consorcio') }} {{ $consorcio->name }}</div>
-        <div class="card-body">
-            <form action="{{route('settings.consorcio.propiedades.update', $consorcio, false)}}" method="post" role="form">
-                <button type="submit" class="btn btn-primary">{{__('Editar')}}</button>
-                    <table class="table">
+    <form action="{{route('settings.consorcio.propiedades.update', $consorcio, false)}}" method="post" role="form">
+        <div class="card card-default">
+            <div class="card-header">{{__('Propiedades')}} - {{ __('Consorcio') }} {{ $consorcio->name }}</div>
+            <div class="card-body">
+                <table class="table table-striped">
                         <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Denominación</th>
-                            <th scope="col">Coef. A</th>
-                            <th scope="col">Coef. B</th>
-                            <th scope="col">Coef. C</th>
-                            <th scope="col">Coef. D</th>
-                            <th scope="col">Coef. E</th>
-                            <th scope="col">Coef. F</th>
-                        </tr>
+                            <tr>
+                                <th scope="col">ID PH</th>
+                                <th scope="col">Denominación</th>
+                                <th scope="col">Coef. A</th>
+                                <th scope="col">Coef. B</th>
+                                <th scope="col">Coef. C</th>
+                                <th scope="col">Coef. Ext. A</th>
+                                <th scope="col">Coef. Ext. B</th>
+                                <th scope="col">Coef. Ext. C</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach($consorcio->propiedades as $propiedad)
-                        <tr>
-                            <th scope="row">{{ $propiedad->id }} <input type="hidden" name="propiedades[{{ $propiedad->id }}][id]" id="propiedades-id-{{ $propiedad->id }}" size="10" value="{{ $propiedad->id }}" class="form-control"></th>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][denominacion]" id="propiedades-denominacion-{{ $propiedad->id }}" size="10" value="{{ old('propiedades.' . $propiedad->id . '.denominacion', $propiedad->denominacion) }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_a]" id="propiedades-coeficiente_a-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_a', $propiedad->coeficiente_a) }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_b]" id="propiedades-coeficiente_b-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_b', $propiedad->coeficiente_b) }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_c]" id="propiedades-coeficiente_c-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_c', $propiedad->coeficiente_c) }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_d]" id="propiedades-coeficiente_d-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_d', $propiedad->coeficiente_d) }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_e]" id="propiedades-coeficiente_e-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_e', $propiedad->coeficiente_e) }}" class="form-control"></td>
-                            <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_f]" id="propiedades-coeficiente_f-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_f', $propiedad->coeficiente_f) }}" class="form-control"></td>
-                        </tr>
-                        @endforeach
+                            @foreach($consorcio->propiedades as $propiedad)
+                            <tr>
+                                <td>{{ $propiedad->id }} <input type="hidden" name="propiedades[{{ $propiedad->id }}][id]" id="propiedades-id-{{ $propiedad->id }}" size="10" value="{{ $propiedad->id }}" class="form-control"></td>
+                                <td><input type="text" name="propiedades[{{ $propiedad->id }}][denominacion]" id="propiedades-denominacion-{{ $propiedad->id }}" size="10" value="{{ old('propiedades.' . $propiedad->id . '.denominacion', $propiedad->denominacion) }}" class="form-control"></td>
+                                <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_a]" id="propiedades-coeficiente_a-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_a', $propiedad->coeficiente_a) }}" class="form-control"></td>
+                                <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_b]" id="propiedades-coeficiente_b-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_b', $propiedad->coeficiente_b) }}" class="form-control"></td>
+                                <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_c]" id="propiedades-coeficiente_c-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_c', $propiedad->coeficiente_c) }}" class="form-control"></td>
+                                <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_d]" id="propiedades-coeficiente_d-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_d', $propiedad->coeficiente_d) }}" class="form-control"></td>
+                                <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_e]" id="propiedades-coeficiente_e-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_e', $propiedad->coeficiente_e) }}" class="form-control"></td>
+                                <td><input type="text" name="propiedades[{{ $propiedad->id }}][coeficiente_f]" id="propiedades-coeficiente_f-{{ $propiedad->id }}" value="{{ old('propiedades.' . $propiedad->id . '.coeficiente_f', $propiedad->coeficiente_f) }}" class="form-control"></td>
+                            </tr>
+                            @endforeach
+                            <tr>
+                                <td colspan="2"><b>{{ __('Total:') }}</b></td>
+                                <td>{{ $consorcio->propiedades()->sum('coeficiente_a') }}</td>
+                                <td>{{ $consorcio->propiedades()->sum('coeficiente_b') }}</td>
+                                <td>{{ $consorcio->propiedades()->sum('coeficiente_c') }}</td>
+                                <td>{{ $consorcio->propiedades()->sum('coeficiente_d') }}</td>
+                                <td>{{ $consorcio->propiedades()->sum('coeficiente_e') }}</td>
+                                <td>{{ $consorcio->propiedades()->sum('coeficiente_f') }}</td>
+                            </tr>
                         </tbody>
-                    </table>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-9">
-                            <button type="submit" class="btn btn-primary">{{__('Editar')}}</button>
-                        </div>
-                    </div>
-                {{ csrf_field() }}
-            </form>
+                </table>
+                <div>
+                    <button type="submit" class="btn btn-primary">{{__('Editar Propiedades')}}</button>
+                    {{ csrf_field() }}
+                </div>
+            </div>
         </div>
-    </div>
+    </form>

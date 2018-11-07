@@ -53,12 +53,12 @@ $factory->define(Propiedad::class, function (Faker $faker) {
     return [
         'denominacion' => $faker->word,
         'consorcio_id' => 1,
-        'coeficiente_a' => 0.000001,
-        'coeficiente_b' => 0.000004,
-        'coeficiente_c' => 0.000005,
-        'coeficiente_d' => 0.000006,
-        'coeficiente_e' => 0.000007,
-        'coeficiente_f' => 0.000008,
+        'coeficiente_a' => 0,
+        'coeficiente_b' => 0,
+        'coeficiente_c' => 0,
+        'coeficiente_d' => 0,
+        'coeficiente_e' => 0,
+        'coeficiente_f' => 0,
     ];
 });
 
