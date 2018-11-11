@@ -38,4 +38,9 @@ class Consorcio extends Model
     {
         return $this->hasOne(Team::class);
     }
+
+    public function validateColumnPropiedades($col)
+    {
+        return (trim($this->propiedades()->sum($col)) == '1' OR trim($this->propiedades()->sum($col)) == '0');
+    }
 }
