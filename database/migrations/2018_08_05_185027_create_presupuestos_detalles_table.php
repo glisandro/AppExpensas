@@ -16,7 +16,6 @@ class CreatePresupuestosDetallesTable extends Migration
         Schema::create('presupuestos_detalles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('presupuesto_id')->index();
-            $table->integer('rubro_id');
             $table->string('concepto');
             $table->double('importe_a')->nullable();
             $table->double('importe_b')->nullable();
