@@ -92,11 +92,11 @@ class RoutesSimpleTest extends TestCase
     public function presupuestos()
     {
         $this->assertTrue(Route::has('consorcios.presupuesto.actual'));
-        $this->assertTrue(Route::has('consorcios.presupuesto.selectfirst'));
-        $this->assertTrue(Route::has('consorcios.presupuesto.storefirst'));
+        //$this->assertTrue(Route::has('consorcios.presupuesto.selectfirst'));
+        //$this->assertTrue(Route::has('consorcios.presupuesto.storefirst'));
         $this->assertTrue(Route::has('consorcios.presupuesto.update'));
         $this->assertTrue(Route::has('consorcios.detalles.store'));
-        $this->assertTrue(Route::has('consorcios.presupuesto.liquidar'));
+        $this->assertTrue(Route::has('consorcios.presupuesto.validarPeriodo'));
         $this->assertTrue(Route::has('consorcios.presupuesto.cupones'));
         $this->assertTrue(Route::has('consorcios.presupuesto.history'));
 
