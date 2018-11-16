@@ -11,9 +11,20 @@ class PropiedadTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Propiedad::class)->times(10)->create([
+
+        $consorcio = \App\Consorcio::withoutGlobalScope('team_id')->find(1);
+
+        $consorcio->propiedades()->saveMany(factory(\App\Propiedad::class)->times(10)->make([
             'coeficiente_a' => 0.1,
-            'coeficiente_d' => 0.1,
-        ]);
+            'coeficiente_d' => 0.1, //Extraordinaria
+        ]));
+
+        $consorcio = \App\Consorcio::withoutGlobalScope('team_id')->find(2);
+
+        $consorcio->propiedades()->saveMany(factory(\App\Propiedad::class)->times(10)->make([
+            'coeficiente_a' => 0,
+            'coeficiente_d' => 0, //Extraordinaria
+        ]));
+
     }
 }

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\{
-    Team, User
+    Consorcio, Team, User
 };
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
@@ -42,33 +42,35 @@ class RoutesSimpleTest extends TestCase
     }
 
     /** @test */
-    function is_user_logged_in()
+    function is_user_sees_the_list_of_consorcios_after_logging_in()
     {
+        $user = $this->userFromTeam();
 
-        list($team, $consorcio) = $this->createTeamWithConsorcio('Team 1', 'Consorcio 1', 1);
+        $currentConsorcio = $this->consorcioFromUser($user);
 
-        $user = $this->userFromTeam($team);
+        //list($currentTeam, $currentConsorcio) = $this->createTeamWithConsorcio('Team 1', 'Consorcio 1', 1);
 
         $this->actingAs($user);
 
         $this->get('/consorcios')
             ->assertStatus(200)
             ->assertSee('Dashboard')
-            ->assertSee($consorcio->name);
+            ->assertSee($currentConsorcio->name);
     }
 
     /** @test */
-    function is_user_logged_ins()
+    // si no tiene propiedades deberia ser redirigido al settings de uf para con el mensaje para que ingrese al menos una
+    function is_user_logged_ins_esta_es_otro()
     {
+        $user = $this->userFromTeam();
 
-        list($currentTeam, $currentConsorcio) = $this->createTeamWithConsorcio('Team 1', 'Consorcio 1', 1);
+        $currentConsorcio = $this->consorcioFromUser($user);
 
-        $this->actingAs($user = $this->userFromTeam($currentTeam));
-        $user->switchToTeam($currentTeam);
+        $this->actingAs($user);
 
-        //$this->get('/consorcios/1')
-          //  ->assertSee('Dashboard');
-
+        $this->get('/consorcios/' . $currentConsorcio->id)
+            ->assertStatus(302)
+            ->assertRedirect('/settings/consorcios/'. $currentConsorcio->id . '#/uf');
     }
 
     /** @test */
@@ -97,7 +99,6 @@ class RoutesSimpleTest extends TestCase
         $this->assertTrue(Route::has('consorcios.presupuesto.update'));
         $this->assertTrue(Route::has('consorcios.presupuesto.detalle.store'));
         $this->assertTrue(Route::has('consorcios.presupuesto.detalle.delete'));
-        $this->assertTrue(Route::has('consorcios.presupuesto.store'));
         $this->assertTrue(Route::has('consorcios.presupuesto.liquidar'));
         $this->assertTrue(Route::has('consorcios.presupuesto.cupones'));
         $this->assertTrue(Route::has('consorcios.presupuesto.history'));

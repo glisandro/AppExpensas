@@ -25,7 +25,7 @@ class PresupuestoSeeder extends Seeder
                 ]));
             }
 
-            $presupuesto->calcularTotales();
+            //$presupuesto->calcularTotales();
 
         });
 
@@ -41,7 +41,7 @@ class PresupuestoSeeder extends Seeder
                 ]));
             }
 
-            $presupuesto->calcularTotales();
+            //$presupuesto->calcularTotales();
 
         });
 

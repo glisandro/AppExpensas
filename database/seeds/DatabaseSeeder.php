@@ -18,10 +18,9 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             ConsorcioTableSeeder::class,
             PropiedadTableSeeder::class,
-
             RubroTableSeeder::class, // Debe estar antes de Presupuesto
             ConceptoSeeder::class,
-           // PresupuestoSeeder::class,
+            PresupuestoSeeder::class,
             CuponSeeder::class,
 
         ]);
