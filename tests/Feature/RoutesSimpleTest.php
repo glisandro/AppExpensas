@@ -60,7 +60,7 @@ class RoutesSimpleTest extends TestCase
 
     /** @test */
     // si no tiene propiedades deberia ser redirigido al settings de uf para con el mensaje para que ingrese al menos una
-    function is_user_logged_ins_esta_es_otro()
+    function is_redirected_to_presupuestos_when_choose_consorcio()
     {
         $user = $this->userFromTeam();
 
@@ -70,7 +70,22 @@ class RoutesSimpleTest extends TestCase
 
         $this->get('/consorcios/' . $currentConsorcio->id)
             ->assertStatus(302)
-            ->assertRedirect('/settings/consorcios/'. $currentConsorcio->id . '#/uf');
+            ->assertRedirect(route('consorcios.presupuesto.actual', $currentConsorcio));
+    }
+
+    /** @test */
+    // si no tiene propiedades deberia ser redirigido al settings de uf para con el mensaje para que ingrese al menos una
+    function is_redirected_if_the_consorcio_does_not_have_ufs()
+    {
+        $user = $this->userFromTeam();
+
+        $currentConsorcio = $this->consorcioFromUser($user);
+
+        $this->actingAs($user);
+
+        $this->get('/consorcios/' . $currentConsorcio->id.'/presupuestos')
+            ->assertStatus(302)
+            ->assertRedirect(route('settings.consorcio.index', $currentConsorcio) .'#/uf');
     }
 
     /** @test */
@@ -101,7 +116,7 @@ class RoutesSimpleTest extends TestCase
         $this->assertTrue(Route::has('consorcios.presupuesto.detalle.delete'));
         $this->assertTrue(Route::has('consorcios.presupuesto.liquidar'));
         $this->assertTrue(Route::has('consorcios.presupuesto.cupones'));
-        $this->assertTrue(Route::has('consorcios.presupuesto.history'));
+        $this->assertTrue(Route::has('consorcios.presupuesto.historics'));
 
     }
 

@@ -96,7 +96,7 @@ class PresupuestoController extends Controller
 
         $presupuestos = Presupuesto::cerrado()->simplePaginate(12);
 
-        return view('consorcios.presupuesto.history', compact('consorcio', 'presupuestos'));
+        return view('consorcios.presupuesto.historical', compact('consorcio', 'presupuestos'));
     }
 
     public function historyshow(Consorcio $consorcio, Presupuesto $presupuesto)

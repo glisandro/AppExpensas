@@ -10,7 +10,7 @@
         <div class="card-body">
             <ul>
                 @foreach($presupuestos as $presupuesto)
-                    <li><a href="#">{{ $presupuesto->periodo }}</a> </li>
+                    <li><a href="{{ route('consorcios.presupuesto.historical.show', [$consorcio, $presupuesto]) }}">{{ $presupuesto->periodo }}</a> </li>
                 @endforeach
             </ul>
             <nav area-lavel="Pagination"> {!! $presupuestos->render() !!}</nav>
