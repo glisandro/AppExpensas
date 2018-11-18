@@ -19,14 +19,11 @@ class PresupuestoSeeder extends Seeder
             $rubros = \App\Rubro::all();
 
             foreach ($rubros as $rubro){
-                $presupuesto->detalles()->saveMany(factory(\App\PresupuestoDetalle::class)->times(3)->make([
-                    'concepto' => 'Concepto Det. ' . $rubro->name,
+                $presupuesto->saveDetalle(factory(\App\PresupuestoDetalle::class)->make([
+                    'concepto' => 'Gasto Presupuesto CERRADO - Concepto. ' . $rubro->name,
                     'rubro_id' => $rubro->id
                 ]));
             }
-
-            //$presupuesto->calcularTotales();
-
         });
 
         factory(\App\Presupuesto::class)->states(\App\Presupuesto::ESTADO_ABIERTO)->times(1)->create([
@@ -35,16 +32,11 @@ class PresupuestoSeeder extends Seeder
             $rubros = \App\Rubro::all();
 
             foreach ($rubros as $rubro){
-                $presupuesto->detalles()->saveMany(factory(\App\PresupuestoDetalle::class)->times(3)->make([
-                    'concepto' => 'Concepto Det. ' . $rubro->name,
+                $presupuesto->saveDetalle(factory(\App\PresupuestoDetalle::class)->make([
+                    'concepto' => 'Gasto Presupuesto ABIERTO Concepto Det. ' . $rubro->name,
                     'rubro_id' => $rubro->id
                 ]));
             }
-
-            //$presupuesto->calcularTotales();
-
         });
-
-
     }
 }
