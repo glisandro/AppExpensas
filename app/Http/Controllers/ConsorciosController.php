@@ -23,10 +23,8 @@ class ConsorciosController extends Controller
      */
     public function redirectToDefaultSection(Consorcio $consorcio)
     {
-        throw new Exception('Accion no redirectToDefaultSection permitida');
-
         // TODO: Redireccionar segun el perfil del usuario, administracion, cobranzas, liquidación...
-        return redirect()->route('consorcios.presupuestos', $consorcio->id);
+        return redirect()->route('consorcios.presupuesto.actual', $consorcio);
     }
 
     /**

@@ -8,25 +8,34 @@ use App\User;
 
 trait CreatesUsers
 {
-    public function userFromTeam(Team $team, $data = [])
+    public function userFromTeam($data = [])
     {
+        $user = factory(User::class)->create();
 
-        $user = factory(User::class)->create(array_merge([
-            'name' => 'Owner',
-            'email' => 'owner@appexpensas.com',
-        ], $data));
+        $team = factory(Team::class)->create([
+            'owner_id' => $user->id
+        ]);
 
         $user->teams()->attach($team, ['role' => 'owner']);
 
         return $user;
     }
 
-    public function createTeamWithConsorcio(string $teamName, string $consorcioName, int $owner)
+    public function consorcioFromUser(User $user)
+    {
+        $consorcio = factory(Consorcio::class)->create();
+
+        $user->currentTeam()->consorcios()->save($consorcio);
+
+        return $consorcio;
+    }
+
+    public function createTeamWithConsorcio(string $teamName, string $consorcioName, int $owner_user_id)
     {
         // Crea el el segundo equipo
         $team = factory(Team::class)->create([
             'name' => $teamName,
-            'owner_id' => $owner
+            'owner_id' => $owner_user_id
         ]);
 
         // Crea un consorcio para su equipo por defecto

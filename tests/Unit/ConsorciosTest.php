@@ -17,14 +17,13 @@ class ConsorciosTest extends TestCase
     /** @test */
     public function the_authenticated_user_get_only_consorcios_from_current_team()
     {
-        $this->withoutExceptionHandling();
+        $user = $this->userFromTeam();
 
-        // Creo un equipo con con un consorcio
-        list($currentTeam, $currentConsorcio) = $this->createTeamWithConsorcio('Team 1', 'Consorcio 1', 1);
+        $currentConsorcio = $this->consorcioFromUser($user);
 
         // Se registra con un equipo
         // Ingresa al sitio
-        $this->actingAs($user = $this->userFromTeam($currentTeam));
+        $this->actingAs($user);
 
         list($anotherTeam, $anotherConsorcio) = $this->createTeamWithConsorcio('Team 2', 'Consorcio 2' , 1);
 
@@ -35,26 +34,24 @@ class ConsorciosTest extends TestCase
 
         $this->assertTrue($consorcios->contains($currentConsorcio));
         $this->assertFalse($consorcios->contains($anotherConsorcio));
-
-        //$this->get('/consorcios/1')
-           // ->assertSee('Dashboard');
+        
     }
 
     /** @test */
-    public function si_un_usuario_autenticado_accede_solo_a_las_propiedades_del_consorcio_seleccionado()
-    {
-        //$this->withoutExceptionHandling();
-
-        // Creo un equipo con con un consorcio
-        // = $this->createConsorcioWithPropiedades('Consorcio 1');
-
-        // $propiedades = factory(Propiedad::class)->times(5)->create();
-
-        //$currentConsorcio->saveMany($propiedades->toArray());
-
-        // Se registra con un equipo
-        // Ingresa al sitio
-        //$this->actingAs($user = $this->userFromTeam($currentTeam));
-
-    }
+//    public function si_un_usuario_autenticado_accede_solo_a_las_propiedades_del_consorcio_seleccionado()
+//    {
+//        $this->withoutExceptionHandling();
+//
+//         //Creo un equipo con con un consorcio
+//         //= $this->createConsorcioWithPropiedades('Consorcio 1');
+//
+//         $propiedades = factory(Propiedad::class)->times(5)->create();
+//
+//        $currentConsorcio->saveMany($propiedades->toArray());
+//
+//        //Se registra con un equipo
+//        //Ingresa al sitio
+//        $this->actingAs($user = $this->userFromTeam($currentTeam));
+//
+//    }
 }

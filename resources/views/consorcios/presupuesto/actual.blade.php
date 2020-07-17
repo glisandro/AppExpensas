@@ -8,11 +8,11 @@
     <div class="card card-default">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-3">{{__('Presupuesto')}} @if ($hasHistory)<a href="{{ route('consorcios.presupuesto.history', [$consorcio], false) }}">{{ __('History') }}</a>@endif</div>
+                <div class="col-md-3">{{__('Presupuesto')}} @if ($hasHistory)<a href="{{ route('consorcios.presupuesto.historics', [$consorcio], false) }}">{{ __('History') }}</a>@endif</div>
                 <div class="col-md-9 text-md-right">
                     <a href="{{route('consorcios.presupuesto.cupones', [$consorcio, $presupuesto])}}" target="_blank" class="btn btn-success">{{ __('Imprimir cupones') }}</a>
                     <a href="{{route('consorcios.presupuesto.liquidar', [$consorcio, $presupuesto])}}" class="btn btn-success">{{ __('Liquidar') }}</a>
-                    <a href="{{route('consorcios.presupuesto.eliminar', [$consorcio, $presupuesto])}}" target="_blank" class="btn btn-danger">{{ __('Eliminar') }}</a>
+                    <a href="{{route('consorcios.presupuesto.delete', $consorcio)}}" class="btn btn-danger">{{ __('Eliminar') }}</a>
                 </div>
             </div>
         </div>

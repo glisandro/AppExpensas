@@ -1,4 +1,4 @@
-@extends('layout.appexpensas')
+@extends('spark::layouts.app')
 
 @section('scripts')
 
@@ -6,7 +6,7 @@
 
 @section('content')
     <settings :user="user" :teams="teams" inline-template>
-        <div class="spark-screen container">
+        <div class="spark-screen container-fluid">
             <div class="row">
                 <!-- Tabs -->
                 <div class="col-md-3 spark-settings-tabs">

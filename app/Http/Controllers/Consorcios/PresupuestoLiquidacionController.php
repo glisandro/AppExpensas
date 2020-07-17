@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePresupuestoRequest;
 use App\Presupuesto;
 use App\PresupuestoDetalle;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Request;
 
 class PresupuestoLiquidacionController extends Controller
@@ -112,6 +113,26 @@ class PresupuestoLiquidacionController extends Controller
 
         // TODO: Fash message
         return redirect()->route('consorcios.presupuesto.actual', $consorcio)->with('success', __('Se actualizó correctemante.'));
+    }
+
+    /**
+     * @param Request $request
+     * @param Consorcio $consorcio
+     * @return mixed
+     */
+    public function delete(Request $request, Consorcio $consorcio)
+    {
+        $presupuesto = Presupuesto::abierto();
+
+        if ($presupuesto){
+
+            $presupuesto->detalles()->delete();
+            $presupuesto->delete();
+
+            Session::flash('success', 'Se eliminó correctamente.');
+        }
+
+        return back();
     }
 
 }

@@ -1,0 +1,67 @@
+version: '3.3'
+services:
+  # NGINX
+  webserver:
+    hostname: webserver
+    container_name: webserver
+    restart: unless-stopped
+    image: nginx:stable-alpine
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ../:/var/www
+    networks:
+      - appexpensas
+
+  #app
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    #image: glisandro/appexpensas
+    restart: unless-stopped
+    environment:
+      XDEBUG: "true"
+      REMOTE_HOST: "localhost"
+      #SERVICE_NAME: app
+      #SERVICE_TAGS: dev
+    #ports:
+    #  - "9001:9000"
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - ../:/var/www
+    working_dir: /var/www
+    networks:
+      - appexpensas
+  db:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: 'db'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: root
+      # You can use whatever password you like
+      MYSQL_PASSWORD: root
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - appexpensas
+
+#Docker Networks
+networks:
+  appexpensas:
+    driver: bridge
+    
+#Volumes
+volumes:
+  dbdata:
