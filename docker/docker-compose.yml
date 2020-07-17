@@ -18,21 +18,20 @@ services:
   app:
     container_name: app
     build:
-      context: ./
-      dockerfile: ./php-fpm/Dockerfile
-    image: glisandro/appexpensas:develop
+      context: .
+      dockerfile: ./Dockerfile
+    #image: glisandro/appexpensas
     restart: unless-stopped
     environment:
       XDEBUG: "true"
       REMOTE_HOST: "localhost"
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
+      #SERVICE_NAME: app
+      #SERVICE_TAGS: dev
     #ports:
     #  - "9001:9000"
     volumes:
       - ~/.ssh:/root/.ssh
       - ../:/var/www
-      - ./php-fpm/local.ini:/usr/local/etc/php/conf.d/local.ini
     working_dir: /var/www
     networks:
       - appexpensas
@@ -66,4 +65,3 @@ networks:
 #Volumes
 volumes:
   dbdata:
-    driver: local
