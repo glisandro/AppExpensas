@@ -164,7 +164,7 @@ return [
         App\Providers\SparkServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        //Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
 
     ],
 
