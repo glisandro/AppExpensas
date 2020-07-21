@@ -217,7 +217,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'AppExpensas' => \App\Facades\AppExpensas::class,
-        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        //'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 
