@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Expensas\Liquidacion\Conceptos\ConceptosLiquidablesAggregator;
+use App\Expensas\Liquidacion\LiquidacionService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -106,50 +106,23 @@ class Presupuesto extends Model
         $this->save();
     }
 
-    public function liquidar(ConceptosLiquidablesAggregator $conceptosLiquidablesAggregator)
+    public function liquidar()
     {
-        DB::transaction(function () use ($conceptosLiquidablesAggregator) {
+        DB::transaction(function () {
 
-            $propiedades = Propiedad::liquidables();
+            $liquidacionService = app()->make(LiquidacionService::class)
+                ->setPresupuesto($this)
+                ->setPropiedades(Propiedad::liquidables());
 
-            foreach ($propiedades as $propiedad) {
+            $cupones = $liquidacionService->generarCupones();
 
-                $total = 0;
-
-                $cupon_conceptos = [];
-
-                $cupon = Cupon::create([
-                    'propiedad_id' => $propiedad->id,
-                    'presupuesto_id' => $this->id,
-                ]);
-
-                // Expenas ordinarias, extraordinarias, multas, notas de crédito...
-                foreach ($conceptosLiquidablesAggregator->getConceptos() as $concepto) {
-
-                    $importe = $concepto->calcularImporte($this, $propiedad);
-
-                    if ($importe <> 0) { // puede ser negativo
-                        $cupon_conceptos[] = new CuponConceptos([
-                            'cupon_id' => $cupon->id,
-                            'concepto_id' => $concepto->getId(),
-                            'importe' => $importe,
-                            'importe_formula' => '0,00000001 * 12500000 + ...'
-                        ]);
-
-                        $total += $importe;
-                    }
-                }
-
-                $cupon->total = $total;
+            collect($cupones)->map(function($cupon){
                 $cupon->save();
-                $cupon->conceptos()->saveMany($cupon_conceptos);
-
-            }
+                $cupon->conceptos()->saveMany($cupon->conceptos);
+            });
 
             $this->estado = Presupuesto::ESTADO_CERRADO;
             $this->save();
         });
     }
-
-
 }

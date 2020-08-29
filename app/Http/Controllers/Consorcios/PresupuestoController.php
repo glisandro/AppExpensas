@@ -16,10 +16,6 @@ class PresupuestoController extends Controller
 
     protected $conceptosLiquidables;
 
-    /**
-     * PresupuestoController constructor.
-     * @param ConceptosLiquidablesAggregator $conceptosLiquidables
-     */
     public function __construct()
     {
         $this->middleware('auth');

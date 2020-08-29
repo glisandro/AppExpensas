@@ -2,11 +2,10 @@
 
 namespace App\Expensas\Liquidacion\Conceptos;
 
-use App\{
-    Presupuesto, Propiedad
-};
+use App\Presupuesto;
+use App\Propiedad;
 
-class ExpensasOrinarias extends ConceptoLiquidable
+class ExpensasOrdinarias extends ConceptoLiquidable
 {
     protected $id = 1;
 
@@ -14,10 +13,10 @@ class ExpensasOrinarias extends ConceptoLiquidable
 
     public function calcularImporte(Presupuesto $presupuesto, Propiedad $propiedad)
     {
-        $total = $propiedad->coeficiente_a * $presupuesto->total_expensa_a;
-        $total += $propiedad->coeficiente_b * $presupuesto->total_expensa_b;
-        $total += $propiedad->coeficiente_c * $presupuesto->total_expensa_c;
+        $importe = $propiedad->coeficiente_a * $presupuesto->total_expensa_a;
+        $importe += $propiedad->coeficiente_b * $presupuesto->total_expensa_b;
+        $importe += $propiedad->coeficiente_c * $presupuesto->total_expensa_c;
 
-        return $total;
+        return $importe;
     }
 }

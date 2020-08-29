@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Consorcios;
 
 use App\Consorcio;
-use App\Expensas\Liquidacion\Conceptos\ConceptosLiquidablesAggregator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePresupuestoRequest;
 use App\Presupuesto;
@@ -49,7 +48,7 @@ class PresupuestoLiquidacionController extends Controller
      * @param ConceptosLiquidablesAggregator $conceptosLiquidables
      * @return mixed
      */
-    public function liquidar(Request $request, Consorcio $consorcio, Presupuesto $presupuesto, ConceptosLiquidablesAggregator $conceptosLiquidables)
+    public function liquidar(Request $request, Consorcio $consorcio, Presupuesto $presupuesto)
     {
         if ($presupuesto && $presupuesto->estado != Presupuesto::ESTADO_ABIERTO){
             return redirect()->route('consorcios.presupuesto.history', $consorcio)->with('warnings', __('El presupuesto ya se encuentra liquidado.'));
@@ -57,7 +56,7 @@ class PresupuestoLiquidacionController extends Controller
 
         //$request->validate(Presupuesto::RULES, Presupuesto::MESSAJES); no deberia validar nada porque solo liquida, no modifica
 
-        $presupuesto->liquidar($conceptosLiquidables);
+        $presupuesto->liquidar();
 
         return redirect()->route('consorcios.presupuesto.history.show', [$consorcio, $presupuesto])->with('success', __('Se liquidó el presupuesto.'));
     }

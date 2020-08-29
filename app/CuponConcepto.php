@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CuponConceptos extends Model
+class CuponConcepto extends Model
 {
     public $guarded = [];
 

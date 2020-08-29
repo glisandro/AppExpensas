@@ -8,6 +8,7 @@ use App\Consorcio;
 use App\Propiedad;
 use App\Presupuesto;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,14 +26,14 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->firstName() . ' ' . $faker->lastName(),
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
+        'remember_token' => Str::random(10),
     ];
 });
 
 $factory->define(Team::class, function (Faker $faker) {
 
     $name = $faker->unique()->company;
-    $slug = str_slug($name, '-');
+    $slug = Str::slug($name, '-');
 
     return [
         'name' => $name,
@@ -113,7 +114,7 @@ $factory->define(\App\Cupon::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(\App\CuponConceptos::class, function (Faker $faker) {
+$factory->define(\App\CuponConcepto::class, function (Faker $faker) {
     return [
    
         'concepto_id' => 1,

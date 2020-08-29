@@ -11,6 +11,8 @@ class Cupon extends Model
 
     public $table = 'cupones';
 
+    public $conceptos = [];
+
     public function presupuesto()
     {
         return $this->belongsTo(Presupuesto::class);
@@ -18,7 +20,7 @@ class Cupon extends Model
 
     public function conceptos()
     {
-        return $this->hasMany(CuponConceptos::class);
+        return $this->hasMany(CuponConcepto::class);
     }
 
     public function scopePropiedad(Builder $builder, Propiedad $propiedad)

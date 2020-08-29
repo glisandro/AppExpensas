@@ -16,9 +16,9 @@ class CuponSeeder extends Seeder
                 'presupuesto_id' => $i,
             ]);
             // Ordinarias
-            $cupon->conceptos()->saveMany(factory(\App\CuponConceptos::class, 1)->make());
+            $cupon->conceptos()->saveMany(factory(\App\CuponConcepto::class, 1)->make());
             // Extraordinarias
-            $cupon->conceptos()->saveMany(factory(\App\CuponConceptos::class, 1)->make(['concepto_id' => 2]));
+            $cupon->conceptos()->saveMany(factory(\App\CuponConcepto::class, 1)->make(['concepto_id' => 2]));
         }
     }
 }
