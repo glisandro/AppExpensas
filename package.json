@@ -14,7 +14,7 @@
     "js-cookie": "^2.1.0",
     "laravel-mix": "1.*",
     "lodash": "^4.17.4",
-    "moment": "^2.10.6",
+    "moment": "^2.29.4",
     "popper.js": "^1.12",
     "promise": "^7.1.1",
     "rtlcss": "^2.2",
